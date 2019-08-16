@@ -11,7 +11,6 @@ endif()
 # For example, to turn off benchmarks, build a shared library, and use sanitize flags in a DEBUG build:
 #    cmake .. -DCMAKE_BUILD_TYPE=DEBUG -DNEMO_BENCH=OFF -DBENCH_STATIC=OFF -DNEMO_SANITIZE=ON
 option(NEMO_TEST      "Build tests" ON)
-option(NEMO_BENCH     "Build benchmarks" ON)
 option(NEMO_STATIC    "Builds a static library instead of a shared one" OFF)
 option(NEMO_SANITIZE  "Adds sanitive flags" OFF)
 
@@ -45,10 +44,6 @@ if(NEMO_TEST)
   add_subdirectory(test)
 endif()
 
-if(NEMO_BENCH)
-  add_subdirectory(bench)
-endif()
-
 message(STATUS "")
 message(STATUS "BUILD SUMMARY")
 message(STATUS "  CMAKE_GENERATOR      : ${CMAKE_GENERATOR}")
@@ -57,7 +52,6 @@ message(STATUS "  Build type           : ${CMAKE_BUILD_TYPE}")
 message(STATUS "  Library name         : ${NEMO_LIB_NAME}")
 message(STATUS "  Library type         : ${NEMO_LIB_TYPE}")
 message(STATUS "  Build tests          : ${NEMO_TEST}")
-message(STATUS "  Build benchmarks     : ${NEMO_BENCH}")
 message(STATUS "  Sanitize flags       : ${NEMO_SANITIZE}")
 message(STATUS "  Boost include dirs   : ${Boost_INCLUDE_DIRS}")
 message(STATUS "")
