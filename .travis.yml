@@ -27,25 +27,13 @@ addons:
 #   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get install -qq g++
   - if [ "$CXX" == "clang++" ]; then sudo apt-get install -qq clang libc++-dev libc++abi-dev; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++"; fi
-  - BOOST_V=1.62.0
-  -  # Get and install Boost
-  - PROJECT_DIR=`pwd`
-  - BOOST=$HOME/boost
-  - git clone --depth 1 -b boost-$BOOST_V https://github.com/boostorg/boost.git $BOOST
-  - cd $BOOST
-  - git submodule update --init --merge
-  - ./bootstrap.sh
-  - ./b2 headers
-  - cd $PROJECT_DIR
-  - export BOOST_ROOT=$BOOST
 
 script:
   - $CXX --version
   - cmake --version
   - mkdir -p build && cd build
-  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD} -DBOOST_ROOT="$BOOST"
+  - cmake .. -DCMAKE_BUILD_TYPE=${BUILD}
   - make
   - ./test/test_tangle
