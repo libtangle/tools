@@ -1,8 +1,7 @@
 sudo: required
 dist: trusty
 
-language:
-  - cpp
+language: cpp
 
 matrix:
   include:
@@ -18,24 +17,20 @@ matrix:
     - env: BUILD=RELEASE
       compiler: clang
 
-before_install:
-  - sudo apt-get update -qq
+addons:
+  apt:
+    packages:
+      - cmake
+      - g++
+
+# before_install:
+#   - sudo apt-get update -qq
 
 install:
   - sudo apt-get install -qq g++
   - if [ "$CXX" == "clang++" ]; then sudo apt-get install -qq clang libc++-dev libc++abi-dev; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++"; fi
-  - CMAKE_V=3.7.1
-  - CMAKE_SV=${CMAKE_V::-2}
   - BOOST_V=1.62.0
-  -  # Get and install CMake
-  - wget https://cmake.org/files/v${CMAKE_SV}/cmake-${CMAKE_V}.tar.gz
-  - tar xf cmake-${CMAKE_V}.tar.gz
-  - cd cmake-${CMAKE_V}
-  - ./configure
-  - make
-  - sudo make install
-  - cd ..
   -  # Get and install Boost
   - PROJECT_DIR=`pwd`
   - BOOST=$HOME/boost
