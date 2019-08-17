@@ -14,8 +14,6 @@ add_executable(test_tangle ${test_src})
 target_link_libraries(test_tangle
   gtest
   ${TANGLE_LIB_NAME}
-  ${CMAKE_THREAD_LIBS_INIT}
-  ${MATH_LIBS}
 )
 
 add_test(

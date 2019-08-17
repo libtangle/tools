@@ -22,14 +22,6 @@ else()
   set(TANGLE_LIB_TYPE SHARED)
 endif()
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-
-# find_package(Threads REQUIRED)
-# find_package(Boost)
-find_package(Math)
-
-# include_directories(. include ${Boost_INCLUDE_DIRS})
-
 set(CMAKE_CXX_STANDARD 11) # cmake 3.1 supports '98', '11' or '14'. cmake 3.8 or later support '17'.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
