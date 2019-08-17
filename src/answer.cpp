@@ -1,9 +1,9 @@
-#include "nemo/foo.h"
+#include "tangle/foo.h"
 
-namespace nemo {
+namespace tangle {
 
 auto answer(int n) -> bool {
   return n == 42;
 }
 
-} /* end namespace nemo */
+} /* end namespace tangle */

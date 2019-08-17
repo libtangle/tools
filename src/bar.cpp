@@ -1,9 +1,9 @@
-#include "nemo/foo.h"
+#include "tangle/foo.h"
 
-namespace nemo {
+namespace tangle {
 
 auto bar(std::string const& x) -> size_t {
   return x.size();
 }
 
-} /* end namespace nemo */
+} /* end namespace tangle */

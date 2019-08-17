@@ -28,7 +28,7 @@ install:
   - CMAKE_V=3.7.1
   - CMAKE_SV=${CMAKE_V::-2}
   - BOOST_V=1.62.0
-  - # Get and install CMake
+  -  # Get and install CMake
   - wget https://cmake.org/files/v${CMAKE_SV}/cmake-${CMAKE_V}.tar.gz
   - tar xf cmake-${CMAKE_V}.tar.gz
   - cd cmake-${CMAKE_V}
@@ -36,7 +36,7 @@ install:
   - make
   - sudo make install
   - cd ..
-  - # Get and install Boost
+  -  # Get and install Boost
   - PROJECT_DIR=`pwd`
   - BOOST=$HOME/boost
   - git clone --depth 1 -b boost-$BOOST_V https://github.com/boostorg/boost.git $BOOST
@@ -53,6 +53,4 @@ script:
   - mkdir -p build && cd build
   - cmake .. -DCMAKE_BUILD_TYPE=${BUILD} -DBOOST_ROOT="$BOOST"
   - make
-  - ./test/test_nemo
-  - ./bench/bench_nemo
-
+  - ./test/test_tangle

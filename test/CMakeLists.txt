@@ -9,16 +9,16 @@ set(test_src
   answer_test.cpp
 )
 
-add_executable(test_nemo ${test_src})
+add_executable(test_tangle ${test_src})
 
-target_link_libraries(test_nemo
+target_link_libraries(test_tangle
   gtest
-  ${NEMO_LIB_NAME}
+  ${TANGLE_LIB_NAME}
   ${CMAKE_THREAD_LIBS_INIT}
   ${MATH_LIBS}
 )
 
 add_test(
   NAME tests
-  COMMAND test_nemo
+  COMMAND test_tangle
 )

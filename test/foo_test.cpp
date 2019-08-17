@@ -1,15 +1,15 @@
 #include <iostream>
 #include "gtest/gtest.h"
 
-#include "nemo/foo.h"
+#include "tangle/foo.h"
 
-TEST(NemoFoo, Positives) {
-  EXPECT_EQ(38, nemo::foo(-4));
-  EXPECT_EQ(42, nemo::foo(0));
+TEST(TangleFoo, Positives) {
+  EXPECT_EQ(38, tangle::foo(-4));
+  EXPECT_EQ(42, tangle::foo(0));
 }
 
-TEST(NemoFoo, Negatives) {
-  EXPECT_NE(-1, nemo::foo(99));
-  EXPECT_NE(0, nemo::foo(-41));
-  EXPECT_NE(42, nemo::foo(42));
+TEST(TangleFoo, Negatives) {
+  EXPECT_NE(-1, tangle::foo(99));
+  EXPECT_NE(0, tangle::foo(-41));
+  EXPECT_NE(42, tangle::foo(42));
 }
