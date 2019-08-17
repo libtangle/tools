@@ -22,6 +22,8 @@ else()
   set(TANGLE_LIB_TYPE SHARED)
 endif()
 
+include_directories(. include)
+
 set(CMAKE_CXX_STANDARD 11) # cmake 3.1 supports '98', '11' or '14'. cmake 3.8 or later support '17'.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
