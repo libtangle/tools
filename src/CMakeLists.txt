@@ -3,7 +3,6 @@ set(nemo_src
   foo.cpp
   bar.cpp
   answer.cpp
-  count_primes.cpp
 )
 
 # Compile the library

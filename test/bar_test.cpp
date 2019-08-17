@@ -1,7 +1,7 @@
 #include <iostream>
 #include "gtest/gtest.h"
 
-#include "nemo/foo.hh"
+#include "nemo/foo.h"
 
 TEST(NemoBar, GetStringSize) {
   EXPECT_EQ(size_t{5}, nemo::bar(std::string{"Kyoto"}));

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "gtest/gtest.h"
 
-#include "nemo/foo.hh"
+#include "nemo/foo.h"
 
 TEST(NemoFoo, Positives) {
   EXPECT_EQ(38, nemo::foo(-4));

@@ -1,4 +1,4 @@
-#include "nemo/foo.hh"
+#include "nemo/foo.h"
 
 namespace nemo {
 

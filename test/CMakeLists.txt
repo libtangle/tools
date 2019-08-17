@@ -7,7 +7,6 @@ set(test_src
   foo_test.cpp
   bar_test.cpp
   answer_test.cpp
-  primes_test.cpp
 )
 
 add_executable(test_nemo ${test_src})

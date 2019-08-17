@@ -1,7 +1,7 @@
 #include <iostream>
 #include "gtest/gtest.h"
 
-#include "nemo/foo.hh"
+#include "nemo/foo.h"
 
 TEST(NemoAnswer, WrongWrongWRONNNNG) {
   EXPECT_FALSE(nemo::answer(8129));
