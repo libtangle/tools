@@ -1,8 +1,6 @@
 # Source files (except the main for the executable):
 set(tangle_src
-  foo.cpp
-  bar.cpp
-  answer.cpp
+  lib.cpp
 )
 
 # Compile the library

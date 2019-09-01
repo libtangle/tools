@@ -4,9 +4,7 @@ include_directories(./gtest/googletest/include)
 
 set(test_src
   run_all.cpp
-  foo_test.cpp
-  bar_test.cpp
-  answer_test.cpp
+  lib_test.cpp
 )
 
 add_executable(test_tangle ${test_src})
