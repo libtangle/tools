@@ -40,6 +40,7 @@
 "["                  return TOKEN(LSQUARE);
 "]"                  return TOKEN(RSQUARE);
 ";"                  return TOKEN(SEMI);
+","                  return TOKEN(COMMA);
 
 "barrier"            return TOKEN(BARRIER);
 "creg"               return TOKEN(CREG);
