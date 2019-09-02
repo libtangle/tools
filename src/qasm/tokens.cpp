@@ -1,6 +1,6 @@
-#line 1 "tokens.cpp"
+#line 2 "tokens.cpp"
 
-#line 3 "tokens.cpp"
+#line 4 "tokens.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -531,8 +531,8 @@ char *yytext;
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 #define TOKEN(t) (yylval.token = t)
 
-#line 534 "tokens.cpp"
 #line 535 "tokens.cpp"
+#line 536 "tokens.cpp"
 
 #define INITIAL 0
 
@@ -752,7 +752,7 @@ YY_DECL
 #line 15 "tokens.l"
 
 
-#line 755 "tokens.cpp"
+#line 756 "tokens.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1000,7 +1000,7 @@ YY_RULE_SETUP
 #line 63 "tokens.l"
 ECHO;
 	YY_BREAK
-#line 1003 "tokens.cpp"
+#line 1004 "tokens.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2006,17 +2006,17 @@ void yyfree (void * ptr )
 #define YYTABLES_NAME "yytables"
 
 #line 63 "tokens.l"
-/* A Bison parser, made by GNU Bison 2.3.  */
+/* A Bison parser, made by GNU Bison 3.3.2.  */
 
-/* Skeleton interface for Bison's Yacc-like parsers in C
+/* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-   Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
+   Inc.
 
-   This program is free software; you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2, or (at your option)
-   any later version.
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -2024,9 +2024,7 @@ void yyfree (void * ptr )
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.  */
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -2041,108 +2039,87 @@ void yyfree (void * ptr )
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Tokens.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
+
+#ifndef YY_YY_PARSER_HPP_INCLUDED
+# define YY_YY_PARSER_HPP_INCLUDED
+/* Debug traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-   /* Put the tokens into the symbol table, so that GDB and other debuggers
-      know about them.  */
-   enum yytokentype {
-     IDENTIFIER = 258,
-     REAL = 259,
-     NNINTEGER = 260,
-     SIN = 261,
-     COS = 262,
-     TAN = 263,
-     EXP = 264,
-     LN = 265,
-     SQRT = 266,
-     PI = 267,
-     PLUS = 268,
-     MINUS = 269,
-     MUL = 270,
-     DIV = 271,
-     POWER = 272,
-     ASSIGN = 273,
-     MATCHES = 274,
-     LPAREN = 275,
-     RPAREN = 276,
-     LBRACE = 277,
-     RBRACE = 278,
-     LSQUARE = 279,
-     RSQUARE = 280,
-     SEMI = 281,
-     COMMA = 282,
-     BARRIER = 283,
-     CREG = 284,
-     QREG = 285,
-     IF = 286,
-     MEASURE = 287,
-     OPAQUE = 288,
-     RESET = 289,
-     GATE = 290,
-     CX = 291,
-     U = 292,
-     VERSION = 293
-   };
+  enum yytokentype
+  {
+    IDENTIFIER = 258,
+    REAL = 259,
+    NNINTEGER = 260,
+    SIN = 261,
+    COS = 262,
+    TAN = 263,
+    EXP = 264,
+    LN = 265,
+    SQRT = 266,
+    PI = 267,
+    PLUS = 268,
+    MINUS = 269,
+    MUL = 270,
+    DIV = 271,
+    POWER = 272,
+    ASSIGN = 273,
+    MATCHES = 274,
+    LPAREN = 275,
+    RPAREN = 276,
+    LBRACE = 277,
+    RBRACE = 278,
+    LSQUARE = 279,
+    RSQUARE = 280,
+    SEMI = 281,
+    COMMA = 282,
+    BARRIER = 283,
+    CREG = 284,
+    QREG = 285,
+    IF = 286,
+    MEASURE = 287,
+    OPAQUE = 288,
+    RESET = 289,
+    GATE = 290,
+    CX = 291,
+    U = 292,
+    VERSION = 293
+  };
 #endif
-/* Tokens.  */
-#define IDENTIFIER 258
-#define REAL 259
-#define NNINTEGER 260
-#define SIN 261
-#define COS 262
-#define TAN 263
-#define EXP 264
-#define LN 265
-#define SQRT 266
-#define PI 267
-#define PLUS 268
-#define MINUS 269
-#define MUL 270
-#define DIV 271
-#define POWER 272
-#define ASSIGN 273
-#define MATCHES 274
-#define LPAREN 275
-#define RPAREN 276
-#define LBRACE 277
-#define RBRACE 278
-#define LSQUARE 279
-#define RSQUARE 280
-#define SEMI 281
-#define COMMA 282
-#define BARRIER 283
-#define CREG 284
-#define QREG 285
-#define IF 286
-#define MEASURE 287
-#define OPAQUE 288
-#define RESET 289
-#define GATE 290
-#define CX 291
-#define U 292
-#define VERSION 293
 
-
-
-
+/* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-#line 16 "parser.y"
+
+union YYSTYPE
 {
+#line 16 "parser.y" /* yacc.c:1921  */
+
     RootNode *root;
     Statement *stmt;
     int token;
     std::string *string;
-}
-/* Line 1529 of yacc.c.  */
-#line 132 "parser.hpp"
-	YYSTYPE;
-# define yystype YYSTYPE /* obsolescent; will be withdrawn */
-# define YYSTYPE_IS_DECLARED 1
+
+#line 104 "parser.hpp" /* yacc.c:1921  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
 #endif
+
 
 extern YYSTYPE yylval;
 
+int yyparse (void);
+
+#endif /* !YY_YY_PARSER_HPP_INCLUDED  */
 

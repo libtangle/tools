@@ -58,7 +58,7 @@ statement : decl
           | OPAQUE IDENTIFIER LPAREN idlist RPAREN idlist SEMI 
           | qop
           | IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN qop
-          | BARRIER anylist SEMI
+          | BARRIER mixedlist SEMI
           ;
 
 decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
@@ -82,22 +82,16 @@ qop : uop
 
 uop : U LPAREN explist RPAREN argument SEMI
     | CX argument COMMA argument SEMI
-    | IDENTIFIER anylist SEMI
-    | IDENTIFIER LPAREN RPAREN anylist SEMI
-    | IDENTIFIER LPAREN explist RPAREN anylist SEMI
+    | IDENTIFIER mixedlist SEMI
+    | IDENTIFIER LPAREN RPAREN mixedlist SEMI
+    | IDENTIFIER LPAREN explist RPAREN mixedlist SEMI
 
 idlist : IDENTIFIER | idlist COMMA IDENTIFIER
        ;
 
-mixedlist : idlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
-          | IDENTIFIER LSQUARE NNINTEGER RSQUARE
-          | IDENTIFIER LSQUARE NNINTEGER RSQUARE COMMA IDENTIFIER
-          | mixedlist COMMA IDENTIFIER
-          | mixedlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
+mixedlist : idlist
+          | idlist LSQUARE NNINTEGER RSQUARE 
           ;
-
-anylist : idlist | mixedlist
-        ;
 
 argument : IDENTIFIER | IDENTIFIER LSQUARE NNINTEGER RSQUARE
          ;
