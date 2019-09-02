@@ -8,17 +8,13 @@
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
 #define TOKEN(t) (yylval.token = t)
 
-extern "C" int yywrap() {}
-
 %}
+
+%option noyywrap
 
 %%
 
 [ \t\n]                                             ;
-[a-z][A-Za-z0-9_]*                                  SAVE_TOKEN; return IDENTIFIER;
-([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?   SAVE_TOKEN; return REAL;
-[1-9]+[0-9]*|0                                      SAVE_TOKEN; return NNINTEGER;
-
 
 "sin"                return TOKEN(SIN);
 "cos"                return TOKEN(COS);
@@ -56,3 +52,10 @@ extern "C" int yywrap() {}
 
 "CX"                 return TOKEN(CX);
 "U"                  return TOKEN(U);
+
+[a-z][A-Za-z0-9_]*                                  SAVE_TOKEN; return IDENTIFIER;
+([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?   SAVE_TOKEN; return REAL;
+[1-9]+[0-9]*|0                                      SAVE_TOKEN; return NNINTEGER;
+
+
+%%

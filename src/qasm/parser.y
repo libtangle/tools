@@ -32,7 +32,6 @@ RootNode *root_node;
 /* Define the types for nonterminal symbols */
 %type <root> program stmts
 %type <stmt> stmt decl
-%type <string> version
 
 /* Operator precendence for mathematical operators */
 %left PLUS MINUS
@@ -46,11 +45,12 @@ RootNode *root_node;
 program : version stmts { root_node = $2; }
         ;
 
-version : VERSION REAL SEMI { $$ = $1; }
+version : VERSION REAL SEMI
         ;
 
-stmts : stmt { $$ = new RootNode(); $$->statements.push_back($<stmt>1) }
+stmts : stmt { $$ = new RootNode(); $$->statements.push_back($<stmt>1); }
       | stmts stmt { $1->statements.push_back($<stmt>2); }
+      ;
 
 stmt : decl
      ;

@@ -4,17 +4,9 @@
 #include <iostream>
 #include <vector>
 
-typedef std::vector<Statement*> StatementList;
-
 class Node {
 public:
     virtual ~Node() {}
-};
-
-class RootNode : Node {
-public:
-    StatementList statements;
-    RootNode() {}
 };
 
 class Statement : public Node {
@@ -36,6 +28,12 @@ public:
         : value(value)
     {
     }
+};
+
+class RootNode : Node {
+public:
+    std::vector<Statement*> statements;
+    RootNode() {}
 };
 
 #endif
