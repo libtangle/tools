@@ -1,0 +1,1687 @@
+State 112 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: mainprogram $end
+
+    1 mainprogram: VERSION REAL SEMI program
+
+    2 program: statement
+    3        | program statement
+
+    4 statement: decl
+    5          | gatedecl goplist RBRACE
+    6          | gatedecl RBRACE
+    7          | OPAQUE IDENTIFIER idlist SEMI
+    8          | OPAQUE IDENTIFIER LPAREN RPAREN idlist SEMI
+    9          | OPAQUE IDENTIFIER LPAREN idlist RPAREN idlist SEMI
+   10          | qop
+   11          | IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN qop
+   12          | BARRIER anylist SEMI
+
+   13 decl: QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+   14     | CREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+
+   15 gatedecl: GATE IDENTIFIER idlist LBRACE
+   16         | GATE IDENTIFIER LPAREN RPAREN idlist LBRACE
+   17         | GATE IDENTIFIER LPAREN idlist RPAREN idlist LBRACE
+
+   18 goplist: uop
+   19        | BARRIER idlist SEMI
+   20        | goplist uop
+   21        | goplist BARRIER idlist SEMI
+
+   22 qop: uop
+   23    | MEASURE argument ASSIGN argument SEMI
+   24    | RESET argument SEMI
+
+   25 uop: U LPAREN explist RPAREN argument SEMI
+   26    | CX argument COMMA argument SEMI
+   27    | IDENTIFIER anylist SEMI
+   28    | IDENTIFIER LPAREN RPAREN anylist SEMI
+   29    | IDENTIFIER LPAREN explist RPAREN anylist SEMI
+
+   30 idlist: IDENTIFIER
+   31       | idlist COMMA IDENTIFIER
+
+   32 mixedlist: idlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
+   33          | IDENTIFIER LSQUARE NNINTEGER RSQUARE
+   34          | IDENTIFIER LSQUARE NNINTEGER RSQUARE COMMA IDENTIFIER
+   35          | mixedlist COMMA IDENTIFIER
+   36          | mixedlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
+
+   37 anylist: idlist
+   38        | mixedlist
+
+   39 argument: IDENTIFIER
+   40         | IDENTIFIER LSQUARE NNINTEGER RSQUARE
+
+   41 explist: exp
+   42        | explist COMMA exp
+
+   43 exp: REAL
+   44    | NNINTEGER
+   45    | PI
+   46    | IDENTIFIER
+   47    | exp PLUS exp
+   48    | exp MINUS exp
+   49    | exp MUL exp
+   50    | exp DIV exp
+   51    | MINUS exp
+   52    | exp POWER exp
+   53    | LPAREN exp RPAREN
+   54    | unaryop LPAREN exp RPAREN
+
+   55 unaryop: SIN
+   56        | COS
+   57        | TAN
+   58        | EXP
+   59        | LN
+   60        | SQRT
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+IDENTIFIER (258) 7 8 9 11 13 14 15 16 17 27 28 29 30 31 32 33 34 35
+    36 39 40 46
+REAL (259) 1 43
+NNINTEGER (260) 11 13 14 32 33 34 36 40 44
+SIN (261) 55
+COS (262) 56
+TAN (263) 57
+EXP (264) 58
+LN (265) 59
+SQRT (266) 60
+PI (267) 45
+PLUS (268) 47
+MINUS (269) 48 51
+MUL (270) 49
+DIV (271) 50
+POWER (272) 52
+ASSIGN (273) 23
+MATCHES (274) 11
+LPAREN (275) 8 9 11 16 17 25 28 29 53 54
+RPAREN (276) 8 9 11 16 17 25 28 29 53 54
+LBRACE (277) 15 16 17
+RBRACE (278) 5 6
+LSQUARE (279) 13 14 32 33 34 36 40
+RSQUARE (280) 13 14 32 33 34 36 40
+SEMI (281) 1 7 8 9 12 13 14 19 21 23 24 25 26 27 28 29
+COMMA (282) 26 31 32 34 35 36 42
+BARRIER (283) 12 19 21
+CREG (284) 14
+QREG (285) 13
+IF (286) 11
+MEASURE (287) 23
+OPAQUE (288) 7 8 9
+RESET (289) 24
+GATE (290) 15 16 17
+CX (291) 26
+U (292) 25
+VERSION (293) 1
+
+
+Nonterminals, with rules where they appear
+
+$accept (39)
+    on left: 0
+mainprogram (40)
+    on left: 1, on right: 0
+program (41)
+    on left: 2 3, on right: 1 3
+statement (42)
+    on left: 4 5 6 7 8 9 10 11 12, on right: 2 3
+decl (43)
+    on left: 13 14, on right: 4
+gatedecl (44)
+    on left: 15 16 17, on right: 5 6
+goplist (45)
+    on left: 18 19 20 21, on right: 5 20 21
+qop (46)
+    on left: 22 23 24, on right: 10 11
+uop (47)
+    on left: 25 26 27 28 29, on right: 18 20 22
+idlist (48)
+    on left: 30 31, on right: 7 8 9 15 16 17 19 21 31 32 37
+mixedlist (49)
+    on left: 32 33 34 35 36, on right: 35 36 38
+anylist (50)
+    on left: 37 38, on right: 12 27 28 29
+argument (51)
+    on left: 39 40, on right: 23 24 25 26
+explist (52)
+    on left: 41 42, on right: 25 29 42
+exp (53)
+    on left: 43 44 45 46 47 48 49 50 51 52 53 54, on right: 41 42 47
+    48 49 50 51 52 53 54
+unaryop (54)
+    on left: 55 56 57 58 59 60, on right: 54
+
+
+state 0
+
+    0 $accept: . mainprogram $end
+
+    VERSION  shift, and go to state 1
+
+    mainprogram  go to state 2
+
+
+state 1
+
+    1 mainprogram: VERSION . REAL SEMI program
+
+    REAL  shift, and go to state 3
+
+
+state 2
+
+    0 $accept: mainprogram . $end
+
+    $end  shift, and go to state 4
+
+
+state 3
+
+    1 mainprogram: VERSION REAL . SEMI program
+
+    SEMI  shift, and go to state 5
+
+
+state 4
+
+    0 $accept: mainprogram $end .
+
+    $default  accept
+
+
+state 5
+
+    1 mainprogram: VERSION REAL SEMI . program
+
+    IDENTIFIER  shift, and go to state 6
+    BARRIER     shift, and go to state 7
+    CREG        shift, and go to state 8
+    QREG        shift, and go to state 9
+    IF          shift, and go to state 10
+    MEASURE     shift, and go to state 11
+    OPAQUE      shift, and go to state 12
+    RESET       shift, and go to state 13
+    GATE        shift, and go to state 14
+    CX          shift, and go to state 15
+    U           shift, and go to state 16
+
+    program    go to state 17
+    statement  go to state 18
+    decl       go to state 19
+    gatedecl   go to state 20
+    qop        go to state 21
+    uop        go to state 22
+
+
+state 6
+
+   27 uop: IDENTIFIER . anylist SEMI
+   28    | IDENTIFIER . LPAREN RPAREN anylist SEMI
+   29    | IDENTIFIER . LPAREN explist RPAREN anylist SEMI
+
+    IDENTIFIER  shift, and go to state 23
+    LPAREN      shift, and go to state 24
+
+    idlist     go to state 25
+    mixedlist  go to state 26
+    anylist    go to state 27
+
+
+state 7
+
+   12 statement: BARRIER . anylist SEMI
+
+    IDENTIFIER  shift, and go to state 23
+
+    idlist     go to state 25
+    mixedlist  go to state 26
+    anylist    go to state 28
+
+
+state 8
+
+   14 decl: CREG . IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+
+    IDENTIFIER  shift, and go to state 29
+
+
+state 9
+
+   13 decl: QREG . IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+
+    IDENTIFIER  shift, and go to state 30
+
+
+state 10
+
+   11 statement: IF . LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN qop
+
+    LPAREN  shift, and go to state 31
+
+
+state 11
+
+   23 qop: MEASURE . argument ASSIGN argument SEMI
+
+    IDENTIFIER  shift, and go to state 32
+
+    argument  go to state 33
+
+
+state 12
+
+    7 statement: OPAQUE . IDENTIFIER idlist SEMI
+    8          | OPAQUE . IDENTIFIER LPAREN RPAREN idlist SEMI
+    9          | OPAQUE . IDENTIFIER LPAREN idlist RPAREN idlist SEMI
+
+    IDENTIFIER  shift, and go to state 34
+
+
+state 13
+
+   24 qop: RESET . argument SEMI
+
+    IDENTIFIER  shift, and go to state 32
+
+    argument  go to state 35
+
+
+state 14
+
+   15 gatedecl: GATE . IDENTIFIER idlist LBRACE
+   16         | GATE . IDENTIFIER LPAREN RPAREN idlist LBRACE
+   17         | GATE . IDENTIFIER LPAREN idlist RPAREN idlist LBRACE
+
+    IDENTIFIER  shift, and go to state 36
+
+
+state 15
+
+   26 uop: CX . argument COMMA argument SEMI
+
+    IDENTIFIER  shift, and go to state 32
+
+    argument  go to state 37
+
+
+state 16
+
+   25 uop: U . LPAREN explist RPAREN argument SEMI
+
+    LPAREN  shift, and go to state 38
+
+
+state 17
+
+    1 mainprogram: VERSION REAL SEMI program .
+    3 program: program . statement
+
+    IDENTIFIER  shift, and go to state 6
+    BARRIER     shift, and go to state 7
+    CREG        shift, and go to state 8
+    QREG        shift, and go to state 9
+    IF          shift, and go to state 10
+    MEASURE     shift, and go to state 11
+    OPAQUE      shift, and go to state 12
+    RESET       shift, and go to state 13
+    GATE        shift, and go to state 14
+    CX          shift, and go to state 15
+    U           shift, and go to state 16
+
+    $default  reduce using rule 1 (mainprogram)
+
+    statement  go to state 39
+    decl       go to state 19
+    gatedecl   go to state 20
+    qop        go to state 21
+    uop        go to state 22
+
+
+state 18
+
+    2 program: statement .
+
+    $default  reduce using rule 2 (program)
+
+
+state 19
+
+    4 statement: decl .
+
+    $default  reduce using rule 4 (statement)
+
+
+state 20
+
+    5 statement: gatedecl . goplist RBRACE
+    6          | gatedecl . RBRACE
+
+    IDENTIFIER  shift, and go to state 6
+    RBRACE      shift, and go to state 40
+    BARRIER     shift, and go to state 41
+    CX          shift, and go to state 15
+    U           shift, and go to state 16
+
+    goplist  go to state 42
+    uop      go to state 43
+
+
+state 21
+
+   10 statement: qop .
+
+    $default  reduce using rule 10 (statement)
+
+
+state 22
+
+   22 qop: uop .
+
+    $default  reduce using rule 22 (qop)
+
+
+state 23
+
+   30 idlist: IDENTIFIER .
+   33 mixedlist: IDENTIFIER . LSQUARE NNINTEGER RSQUARE
+   34          | IDENTIFIER . LSQUARE NNINTEGER RSQUARE COMMA IDENTIFIER
+
+    LSQUARE  shift, and go to state 44
+
+    $default  reduce using rule 30 (idlist)
+
+
+state 24
+
+   28 uop: IDENTIFIER LPAREN . RPAREN anylist SEMI
+   29    | IDENTIFIER LPAREN . explist RPAREN anylist SEMI
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+    RPAREN      shift, and go to state 57
+
+    explist  go to state 58
+    exp      go to state 59
+    unaryop  go to state 60
+
+
+state 25
+
+   31 idlist: idlist . COMMA IDENTIFIER
+   32 mixedlist: idlist . COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
+   37 anylist: idlist .
+
+    COMMA  shift, and go to state 61
+
+    $default  reduce using rule 37 (anylist)
+
+
+state 26
+
+   35 mixedlist: mixedlist . COMMA IDENTIFIER
+   36          | mixedlist . COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
+   38 anylist: mixedlist .
+
+    COMMA  shift, and go to state 62
+
+    $default  reduce using rule 38 (anylist)
+
+
+state 27
+
+   27 uop: IDENTIFIER anylist . SEMI
+
+    SEMI  shift, and go to state 63
+
+
+state 28
+
+   12 statement: BARRIER anylist . SEMI
+
+    SEMI  shift, and go to state 64
+
+
+state 29
+
+   14 decl: CREG IDENTIFIER . LSQUARE NNINTEGER RSQUARE SEMI
+
+    LSQUARE  shift, and go to state 65
+
+
+state 30
+
+   13 decl: QREG IDENTIFIER . LSQUARE NNINTEGER RSQUARE SEMI
+
+    LSQUARE  shift, and go to state 66
+
+
+state 31
+
+   11 statement: IF LPAREN . IDENTIFIER MATCHES NNINTEGER RPAREN qop
+
+    IDENTIFIER  shift, and go to state 67
+
+
+state 32
+
+   39 argument: IDENTIFIER .
+   40         | IDENTIFIER . LSQUARE NNINTEGER RSQUARE
+
+    LSQUARE  shift, and go to state 68
+
+    $default  reduce using rule 39 (argument)
+
+
+state 33
+
+   23 qop: MEASURE argument . ASSIGN argument SEMI
+
+    ASSIGN  shift, and go to state 69
+
+
+state 34
+
+    7 statement: OPAQUE IDENTIFIER . idlist SEMI
+    8          | OPAQUE IDENTIFIER . LPAREN RPAREN idlist SEMI
+    9          | OPAQUE IDENTIFIER . LPAREN idlist RPAREN idlist SEMI
+
+    IDENTIFIER  shift, and go to state 70
+    LPAREN      shift, and go to state 71
+
+    idlist  go to state 72
+
+
+state 35
+
+   24 qop: RESET argument . SEMI
+
+    SEMI  shift, and go to state 73
+
+
+state 36
+
+   15 gatedecl: GATE IDENTIFIER . idlist LBRACE
+   16         | GATE IDENTIFIER . LPAREN RPAREN idlist LBRACE
+   17         | GATE IDENTIFIER . LPAREN idlist RPAREN idlist LBRACE
+
+    IDENTIFIER  shift, and go to state 70
+    LPAREN      shift, and go to state 74
+
+    idlist  go to state 75
+
+
+state 37
+
+   26 uop: CX argument . COMMA argument SEMI
+
+    COMMA  shift, and go to state 76
+
+
+state 38
+
+   25 uop: U LPAREN . explist RPAREN argument SEMI
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    explist  go to state 77
+    exp      go to state 59
+    unaryop  go to state 60
+
+
+state 39
+
+    3 program: program statement .
+
+    $default  reduce using rule 3 (program)
+
+
+state 40
+
+    6 statement: gatedecl RBRACE .
+
+    $default  reduce using rule 6 (statement)
+
+
+state 41
+
+   19 goplist: BARRIER . idlist SEMI
+
+    IDENTIFIER  shift, and go to state 70
+
+    idlist  go to state 78
+
+
+state 42
+
+    5 statement: gatedecl goplist . RBRACE
+   20 goplist: goplist . uop
+   21        | goplist . BARRIER idlist SEMI
+
+    IDENTIFIER  shift, and go to state 6
+    RBRACE      shift, and go to state 79
+    BARRIER     shift, and go to state 80
+    CX          shift, and go to state 15
+    U           shift, and go to state 16
+
+    uop  go to state 81
+
+
+state 43
+
+   18 goplist: uop .
+
+    $default  reduce using rule 18 (goplist)
+
+
+state 44
+
+   33 mixedlist: IDENTIFIER LSQUARE . NNINTEGER RSQUARE
+   34          | IDENTIFIER LSQUARE . NNINTEGER RSQUARE COMMA IDENTIFIER
+
+    NNINTEGER  shift, and go to state 82
+
+
+state 45
+
+   46 exp: IDENTIFIER .
+
+    $default  reduce using rule 46 (exp)
+
+
+state 46
+
+   43 exp: REAL .
+
+    $default  reduce using rule 43 (exp)
+
+
+state 47
+
+   44 exp: NNINTEGER .
+
+    $default  reduce using rule 44 (exp)
+
+
+state 48
+
+   55 unaryop: SIN .
+
+    $default  reduce using rule 55 (unaryop)
+
+
+state 49
+
+   56 unaryop: COS .
+
+    $default  reduce using rule 56 (unaryop)
+
+
+state 50
+
+   57 unaryop: TAN .
+
+    $default  reduce using rule 57 (unaryop)
+
+
+state 51
+
+   58 unaryop: EXP .
+
+    $default  reduce using rule 58 (unaryop)
+
+
+state 52
+
+   59 unaryop: LN .
+
+    $default  reduce using rule 59 (unaryop)
+
+
+state 53
+
+   60 unaryop: SQRT .
+
+    $default  reduce using rule 60 (unaryop)
+
+
+state 54
+
+   45 exp: PI .
+
+    $default  reduce using rule 45 (exp)
+
+
+state 55
+
+   51 exp: MINUS . exp
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 83
+    unaryop  go to state 60
+
+
+state 56
+
+   53 exp: LPAREN . exp RPAREN
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 84
+    unaryop  go to state 60
+
+
+state 57
+
+   28 uop: IDENTIFIER LPAREN RPAREN . anylist SEMI
+
+    IDENTIFIER  shift, and go to state 23
+
+    idlist     go to state 25
+    mixedlist  go to state 26
+    anylist    go to state 85
+
+
+state 58
+
+   29 uop: IDENTIFIER LPAREN explist . RPAREN anylist SEMI
+   42 explist: explist . COMMA exp
+
+    RPAREN  shift, and go to state 86
+    COMMA   shift, and go to state 87
+
+
+state 59
+
+   41 explist: exp .
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+
+    PLUS   shift, and go to state 88
+    MINUS  shift, and go to state 89
+    MUL    shift, and go to state 90
+    DIV    shift, and go to state 91
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 41 (explist)
+
+
+state 60
+
+   54 exp: unaryop . LPAREN exp RPAREN
+
+    LPAREN  shift, and go to state 93
+
+
+state 61
+
+   31 idlist: idlist COMMA . IDENTIFIER
+   32 mixedlist: idlist COMMA . IDENTIFIER LSQUARE NNINTEGER RSQUARE
+
+    IDENTIFIER  shift, and go to state 94
+
+
+state 62
+
+   35 mixedlist: mixedlist COMMA . IDENTIFIER
+   36          | mixedlist COMMA . IDENTIFIER LSQUARE NNINTEGER RSQUARE
+
+    IDENTIFIER  shift, and go to state 95
+
+
+state 63
+
+   27 uop: IDENTIFIER anylist SEMI .
+
+    $default  reduce using rule 27 (uop)
+
+
+state 64
+
+   12 statement: BARRIER anylist SEMI .
+
+    $default  reduce using rule 12 (statement)
+
+
+state 65
+
+   14 decl: CREG IDENTIFIER LSQUARE . NNINTEGER RSQUARE SEMI
+
+    NNINTEGER  shift, and go to state 96
+
+
+state 66
+
+   13 decl: QREG IDENTIFIER LSQUARE . NNINTEGER RSQUARE SEMI
+
+    NNINTEGER  shift, and go to state 97
+
+
+state 67
+
+   11 statement: IF LPAREN IDENTIFIER . MATCHES NNINTEGER RPAREN qop
+
+    MATCHES  shift, and go to state 98
+
+
+state 68
+
+   40 argument: IDENTIFIER LSQUARE . NNINTEGER RSQUARE
+
+    NNINTEGER  shift, and go to state 99
+
+
+state 69
+
+   23 qop: MEASURE argument ASSIGN . argument SEMI
+
+    IDENTIFIER  shift, and go to state 32
+
+    argument  go to state 100
+
+
+state 70
+
+   30 idlist: IDENTIFIER .
+
+    $default  reduce using rule 30 (idlist)
+
+
+state 71
+
+    8 statement: OPAQUE IDENTIFIER LPAREN . RPAREN idlist SEMI
+    9          | OPAQUE IDENTIFIER LPAREN . idlist RPAREN idlist SEMI
+
+    IDENTIFIER  shift, and go to state 70
+    RPAREN      shift, and go to state 101
+
+    idlist  go to state 102
+
+
+state 72
+
+    7 statement: OPAQUE IDENTIFIER idlist . SEMI
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    SEMI   shift, and go to state 103
+    COMMA  shift, and go to state 104
+
+
+state 73
+
+   24 qop: RESET argument SEMI .
+
+    $default  reduce using rule 24 (qop)
+
+
+state 74
+
+   16 gatedecl: GATE IDENTIFIER LPAREN . RPAREN idlist LBRACE
+   17         | GATE IDENTIFIER LPAREN . idlist RPAREN idlist LBRACE
+
+    IDENTIFIER  shift, and go to state 70
+    RPAREN      shift, and go to state 105
+
+    idlist  go to state 106
+
+
+state 75
+
+   15 gatedecl: GATE IDENTIFIER idlist . LBRACE
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    LBRACE  shift, and go to state 107
+    COMMA   shift, and go to state 104
+
+
+state 76
+
+   26 uop: CX argument COMMA . argument SEMI
+
+    IDENTIFIER  shift, and go to state 32
+
+    argument  go to state 108
+
+
+state 77
+
+   25 uop: U LPAREN explist . RPAREN argument SEMI
+   42 explist: explist . COMMA exp
+
+    RPAREN  shift, and go to state 109
+    COMMA   shift, and go to state 87
+
+
+state 78
+
+   19 goplist: BARRIER idlist . SEMI
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    SEMI   shift, and go to state 110
+    COMMA  shift, and go to state 104
+
+
+state 79
+
+    5 statement: gatedecl goplist RBRACE .
+
+    $default  reduce using rule 5 (statement)
+
+
+state 80
+
+   21 goplist: goplist BARRIER . idlist SEMI
+
+    IDENTIFIER  shift, and go to state 70
+
+    idlist  go to state 111
+
+
+state 81
+
+   20 goplist: goplist uop .
+
+    $default  reduce using rule 20 (goplist)
+
+
+state 82
+
+   33 mixedlist: IDENTIFIER LSQUARE NNINTEGER . RSQUARE
+   34          | IDENTIFIER LSQUARE NNINTEGER . RSQUARE COMMA IDENTIFIER
+
+    RSQUARE  shift, and go to state 112
+
+
+state 83
+
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   51    | MINUS exp .
+   52    | exp . POWER exp
+
+    MUL    shift, and go to state 90
+    DIV    shift, and go to state 91
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 51 (exp)
+
+
+state 84
+
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+   53    | LPAREN exp . RPAREN
+
+    PLUS    shift, and go to state 88
+    MINUS   shift, and go to state 89
+    MUL     shift, and go to state 90
+    DIV     shift, and go to state 91
+    POWER   shift, and go to state 92
+    RPAREN  shift, and go to state 113
+
+
+state 85
+
+   28 uop: IDENTIFIER LPAREN RPAREN anylist . SEMI
+
+    SEMI  shift, and go to state 114
+
+
+state 86
+
+   29 uop: IDENTIFIER LPAREN explist RPAREN . anylist SEMI
+
+    IDENTIFIER  shift, and go to state 23
+
+    idlist     go to state 25
+    mixedlist  go to state 26
+    anylist    go to state 115
+
+
+state 87
+
+   42 explist: explist COMMA . exp
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 116
+    unaryop  go to state 60
+
+
+state 88
+
+   47 exp: exp PLUS . exp
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 117
+    unaryop  go to state 60
+
+
+state 89
+
+   48 exp: exp MINUS . exp
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 118
+    unaryop  go to state 60
+
+
+state 90
+
+   49 exp: exp MUL . exp
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 119
+    unaryop  go to state 60
+
+
+state 91
+
+   50 exp: exp DIV . exp
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 120
+    unaryop  go to state 60
+
+
+state 92
+
+   52 exp: exp POWER . exp
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 121
+    unaryop  go to state 60
+
+
+state 93
+
+   54 exp: unaryop LPAREN . exp RPAREN
+
+    IDENTIFIER  shift, and go to state 45
+    REAL        shift, and go to state 46
+    NNINTEGER   shift, and go to state 47
+    SIN         shift, and go to state 48
+    COS         shift, and go to state 49
+    TAN         shift, and go to state 50
+    EXP         shift, and go to state 51
+    LN          shift, and go to state 52
+    SQRT        shift, and go to state 53
+    PI          shift, and go to state 54
+    MINUS       shift, and go to state 55
+    LPAREN      shift, and go to state 56
+
+    exp      go to state 122
+    unaryop  go to state 60
+
+
+state 94
+
+   31 idlist: idlist COMMA IDENTIFIER .
+   32 mixedlist: idlist COMMA IDENTIFIER . LSQUARE NNINTEGER RSQUARE
+
+    LSQUARE  shift, and go to state 123
+
+    $default  reduce using rule 31 (idlist)
+
+
+state 95
+
+   35 mixedlist: mixedlist COMMA IDENTIFIER .
+   36          | mixedlist COMMA IDENTIFIER . LSQUARE NNINTEGER RSQUARE
+
+    LSQUARE  shift, and go to state 124
+
+    $default  reduce using rule 35 (mixedlist)
+
+
+state 96
+
+   14 decl: CREG IDENTIFIER LSQUARE NNINTEGER . RSQUARE SEMI
+
+    RSQUARE  shift, and go to state 125
+
+
+state 97
+
+   13 decl: QREG IDENTIFIER LSQUARE NNINTEGER . RSQUARE SEMI
+
+    RSQUARE  shift, and go to state 126
+
+
+state 98
+
+   11 statement: IF LPAREN IDENTIFIER MATCHES . NNINTEGER RPAREN qop
+
+    NNINTEGER  shift, and go to state 127
+
+
+state 99
+
+   40 argument: IDENTIFIER LSQUARE NNINTEGER . RSQUARE
+
+    RSQUARE  shift, and go to state 128
+
+
+state 100
+
+   23 qop: MEASURE argument ASSIGN argument . SEMI
+
+    SEMI  shift, and go to state 129
+
+
+state 101
+
+    8 statement: OPAQUE IDENTIFIER LPAREN RPAREN . idlist SEMI
+
+    IDENTIFIER  shift, and go to state 70
+
+    idlist  go to state 130
+
+
+state 102
+
+    9 statement: OPAQUE IDENTIFIER LPAREN idlist . RPAREN idlist SEMI
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    RPAREN  shift, and go to state 131
+    COMMA   shift, and go to state 104
+
+
+state 103
+
+    7 statement: OPAQUE IDENTIFIER idlist SEMI .
+
+    $default  reduce using rule 7 (statement)
+
+
+state 104
+
+   31 idlist: idlist COMMA . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 132
+
+
+state 105
+
+   16 gatedecl: GATE IDENTIFIER LPAREN RPAREN . idlist LBRACE
+
+    IDENTIFIER  shift, and go to state 70
+
+    idlist  go to state 133
+
+
+state 106
+
+   17 gatedecl: GATE IDENTIFIER LPAREN idlist . RPAREN idlist LBRACE
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    RPAREN  shift, and go to state 134
+    COMMA   shift, and go to state 104
+
+
+state 107
+
+   15 gatedecl: GATE IDENTIFIER idlist LBRACE .
+
+    $default  reduce using rule 15 (gatedecl)
+
+
+state 108
+
+   26 uop: CX argument COMMA argument . SEMI
+
+    SEMI  shift, and go to state 135
+
+
+state 109
+
+   25 uop: U LPAREN explist RPAREN . argument SEMI
+
+    IDENTIFIER  shift, and go to state 32
+
+    argument  go to state 136
+
+
+state 110
+
+   19 goplist: BARRIER idlist SEMI .
+
+    $default  reduce using rule 19 (goplist)
+
+
+state 111
+
+   21 goplist: goplist BARRIER idlist . SEMI
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    SEMI   shift, and go to state 137
+    COMMA  shift, and go to state 104
+
+
+state 112
+
+   33 mixedlist: IDENTIFIER LSQUARE NNINTEGER RSQUARE .
+   34          | IDENTIFIER LSQUARE NNINTEGER RSQUARE . COMMA IDENTIFIER
+
+    COMMA  shift, and go to state 138
+
+    COMMA     [reduce using rule 33 (mixedlist)]
+    $default  reduce using rule 33 (mixedlist)
+
+
+state 113
+
+   53 exp: LPAREN exp RPAREN .
+
+    $default  reduce using rule 53 (exp)
+
+
+state 114
+
+   28 uop: IDENTIFIER LPAREN RPAREN anylist SEMI .
+
+    $default  reduce using rule 28 (uop)
+
+
+state 115
+
+   29 uop: IDENTIFIER LPAREN explist RPAREN anylist . SEMI
+
+    SEMI  shift, and go to state 139
+
+
+state 116
+
+   42 explist: explist COMMA exp .
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+
+    PLUS   shift, and go to state 88
+    MINUS  shift, and go to state 89
+    MUL    shift, and go to state 90
+    DIV    shift, and go to state 91
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 42 (explist)
+
+
+state 117
+
+   47 exp: exp . PLUS exp
+   47    | exp PLUS exp .
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+
+    MUL    shift, and go to state 90
+    DIV    shift, and go to state 91
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 47 (exp)
+
+
+state 118
+
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   48    | exp MINUS exp .
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+
+    MUL    shift, and go to state 90
+    DIV    shift, and go to state 91
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 48 (exp)
+
+
+state 119
+
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   49    | exp MUL exp .
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 49 (exp)
+
+
+state 120
+
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   50    | exp DIV exp .
+   52    | exp . POWER exp
+
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 50 (exp)
+
+
+state 121
+
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+   52    | exp POWER exp .
+
+    POWER  shift, and go to state 92
+
+    $default  reduce using rule 52 (exp)
+
+
+state 122
+
+   47 exp: exp . PLUS exp
+   48    | exp . MINUS exp
+   49    | exp . MUL exp
+   50    | exp . DIV exp
+   52    | exp . POWER exp
+   54    | unaryop LPAREN exp . RPAREN
+
+    PLUS    shift, and go to state 88
+    MINUS   shift, and go to state 89
+    MUL     shift, and go to state 90
+    DIV     shift, and go to state 91
+    POWER   shift, and go to state 92
+    RPAREN  shift, and go to state 140
+
+
+state 123
+
+   32 mixedlist: idlist COMMA IDENTIFIER LSQUARE . NNINTEGER RSQUARE
+
+    NNINTEGER  shift, and go to state 141
+
+
+state 124
+
+   36 mixedlist: mixedlist COMMA IDENTIFIER LSQUARE . NNINTEGER RSQUARE
+
+    NNINTEGER  shift, and go to state 142
+
+
+state 125
+
+   14 decl: CREG IDENTIFIER LSQUARE NNINTEGER RSQUARE . SEMI
+
+    SEMI  shift, and go to state 143
+
+
+state 126
+
+   13 decl: QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE . SEMI
+
+    SEMI  shift, and go to state 144
+
+
+state 127
+
+   11 statement: IF LPAREN IDENTIFIER MATCHES NNINTEGER . RPAREN qop
+
+    RPAREN  shift, and go to state 145
+
+
+state 128
+
+   40 argument: IDENTIFIER LSQUARE NNINTEGER RSQUARE .
+
+    $default  reduce using rule 40 (argument)
+
+
+state 129
+
+   23 qop: MEASURE argument ASSIGN argument SEMI .
+
+    $default  reduce using rule 23 (qop)
+
+
+state 130
+
+    8 statement: OPAQUE IDENTIFIER LPAREN RPAREN idlist . SEMI
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    SEMI   shift, and go to state 146
+    COMMA  shift, and go to state 104
+
+
+state 131
+
+    9 statement: OPAQUE IDENTIFIER LPAREN idlist RPAREN . idlist SEMI
+
+    IDENTIFIER  shift, and go to state 70
+
+    idlist  go to state 147
+
+
+state 132
+
+   31 idlist: idlist COMMA IDENTIFIER .
+
+    $default  reduce using rule 31 (idlist)
+
+
+state 133
+
+   16 gatedecl: GATE IDENTIFIER LPAREN RPAREN idlist . LBRACE
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    LBRACE  shift, and go to state 148
+    COMMA   shift, and go to state 104
+
+
+state 134
+
+   17 gatedecl: GATE IDENTIFIER LPAREN idlist RPAREN . idlist LBRACE
+
+    IDENTIFIER  shift, and go to state 70
+
+    idlist  go to state 149
+
+
+state 135
+
+   26 uop: CX argument COMMA argument SEMI .
+
+    $default  reduce using rule 26 (uop)
+
+
+state 136
+
+   25 uop: U LPAREN explist RPAREN argument . SEMI
+
+    SEMI  shift, and go to state 150
+
+
+state 137
+
+   21 goplist: goplist BARRIER idlist SEMI .
+
+    $default  reduce using rule 21 (goplist)
+
+
+state 138
+
+   34 mixedlist: IDENTIFIER LSQUARE NNINTEGER RSQUARE COMMA . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 151
+
+
+state 139
+
+   29 uop: IDENTIFIER LPAREN explist RPAREN anylist SEMI .
+
+    $default  reduce using rule 29 (uop)
+
+
+state 140
+
+   54 exp: unaryop LPAREN exp RPAREN .
+
+    $default  reduce using rule 54 (exp)
+
+
+state 141
+
+   32 mixedlist: idlist COMMA IDENTIFIER LSQUARE NNINTEGER . RSQUARE
+
+    RSQUARE  shift, and go to state 152
+
+
+state 142
+
+   36 mixedlist: mixedlist COMMA IDENTIFIER LSQUARE NNINTEGER . RSQUARE
+
+    RSQUARE  shift, and go to state 153
+
+
+state 143
+
+   14 decl: CREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI .
+
+    $default  reduce using rule 14 (decl)
+
+
+state 144
+
+   13 decl: QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI .
+
+    $default  reduce using rule 13 (decl)
+
+
+state 145
+
+   11 statement: IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN . qop
+
+    IDENTIFIER  shift, and go to state 6
+    MEASURE     shift, and go to state 11
+    RESET       shift, and go to state 13
+    CX          shift, and go to state 15
+    U           shift, and go to state 16
+
+    qop  go to state 154
+    uop  go to state 22
+
+
+state 146
+
+    8 statement: OPAQUE IDENTIFIER LPAREN RPAREN idlist SEMI .
+
+    $default  reduce using rule 8 (statement)
+
+
+state 147
+
+    9 statement: OPAQUE IDENTIFIER LPAREN idlist RPAREN idlist . SEMI
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    SEMI   shift, and go to state 155
+    COMMA  shift, and go to state 104
+
+
+state 148
+
+   16 gatedecl: GATE IDENTIFIER LPAREN RPAREN idlist LBRACE .
+
+    $default  reduce using rule 16 (gatedecl)
+
+
+state 149
+
+   17 gatedecl: GATE IDENTIFIER LPAREN idlist RPAREN idlist . LBRACE
+   31 idlist: idlist . COMMA IDENTIFIER
+
+    LBRACE  shift, and go to state 156
+    COMMA   shift, and go to state 104
+
+
+state 150
+
+   25 uop: U LPAREN explist RPAREN argument SEMI .
+
+    $default  reduce using rule 25 (uop)
+
+
+state 151
+
+   34 mixedlist: IDENTIFIER LSQUARE NNINTEGER RSQUARE COMMA IDENTIFIER .
+
+    $default  reduce using rule 34 (mixedlist)
+
+
+state 152
+
+   32 mixedlist: idlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE .
+
+    $default  reduce using rule 32 (mixedlist)
+
+
+state 153
+
+   36 mixedlist: mixedlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE .
+
+    $default  reduce using rule 36 (mixedlist)
+
+
+state 154
+
+   11 statement: IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN qop .
+
+    $default  reduce using rule 11 (statement)
+
+
+state 155
+
+    9 statement: OPAQUE IDENTIFIER LPAREN idlist RPAREN idlist SEMI .
+
+    $default  reduce using rule 9 (statement)
+
+
+state 156
+
+   17 gatedecl: GATE IDENTIFIER LPAREN idlist RPAREN idlist LBRACE .
+
+    $default  reduce using rule 17 (gatedecl)

@@ -31,8 +31,8 @@ RootNode *root_node;
 %token <token> BARRIER CREG QREG IF MEASURE OPAQUE RESET GATE CX U VERSION
 
 /* Define the types for nonterminal symbols */
-%type <root> program stmts
-%type <stmt> stmt decl
+%type <root> program mainprogram
+%type <stmt> statement
 
 /* Operator precendence for mathematical operators */
 %left PLUS MINUS
@@ -58,16 +58,16 @@ statement : decl
           | OPAQUE IDENTIFIER LPAREN idlist RPAREN idlist SEMI 
           | qop
           | IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN qop
-          | BARRIER anylist COMMA
+          | BARRIER anylist SEMI
           ;
 
 decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
-     | QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+     | CREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
      ;
 
 gatedecl : GATE IDENTIFIER idlist LBRACE
          | GATE IDENTIFIER LPAREN RPAREN idlist LBRACE
-         | GATE IDENTIFIER LPAREN idlist RPAREN idlist BRACE
+         | GATE IDENTIFIER LPAREN idlist RPAREN idlist LBRACE
          ;
 
 goplist : uop
@@ -84,4 +84,32 @@ uop : U LPAREN explist RPAREN argument SEMI
     | CX argument COMMA argument SEMI
     | IDENTIFIER anylist SEMI
     | IDENTIFIER LPAREN RPAREN anylist SEMI
-    | 
+    | IDENTIFIER LPAREN explist RPAREN anylist SEMI
+
+idlist : IDENTIFIER | idlist COMMA IDENTIFIER
+       ;
+
+mixedlist : idlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
+          | IDENTIFIER LSQUARE NNINTEGER RSQUARE
+          | IDENTIFIER LSQUARE NNINTEGER RSQUARE COMMA IDENTIFIER
+          | mixedlist COMMA IDENTIFIER
+          | mixedlist COMMA IDENTIFIER LSQUARE NNINTEGER RSQUARE
+          ;
+
+anylist : idlist | mixedlist
+        ;
+
+argument : IDENTIFIER | IDENTIFIER LSQUARE NNINTEGER RSQUARE
+         ;
+
+explist : exp | explist COMMA exp
+        ;
+
+exp : REAL | NNINTEGER | PI | IDENTIFIER
+    | exp PLUS exp | exp MINUS exp | exp MUL exp
+    | exp DIV exp | MINUS exp | exp POWER exp
+    | LPAREN exp RPAREN
+    | unaryop LPAREN exp RPAREN
+    ;
+
+unaryop : SIN | COS | TAN | EXP | LN | SQRT
