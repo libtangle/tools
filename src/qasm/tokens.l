@@ -33,6 +33,7 @@ extern "C" int yywrap() {}
 "-"                  return TOKEN(MINUS);
 "*"                  return TOKEN(MUL);
 "/"                  return TOKEN(DIV);
+"^"                  return TOKEN(POWER);
 
 "->"                 return TOKEN(ASSIGN);
 "=="                 return TOKEN(MATCHES);
@@ -50,6 +51,7 @@ extern "C" int yywrap() {}
 "measure"            return TOKEN(MEASURE);
 "opaque"             return TOKEN(OPAQUE);
 "reset"              return TOKEN(RESET);
+"OPENQASM"           return TOKEN(VERSION);
 
 "CX"                 return TOKEN(CX);
 "U"                  return TOKEN(U);
