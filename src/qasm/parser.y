@@ -14,6 +14,8 @@ RootNode *root_node;
 
 /* Represents the many different ways we can access our data */
 %union {
+    RootNode *root;
+    Statement *stmt;
     int token;
     std::string *string;
 }
@@ -24,8 +26,13 @@ RootNode *root_node;
 %token <string> IDENTIFIER REAL NNINTEGER
 %token <token> SIN COS TAN EXP LN SQRT PI
 %token <token> PLUS MINUS MUL DIV POWER
-%token <token> ASSIGN MATCHES LPAREN RPAREN LBRACE RBRACE LSQUARE RSQUARE
+%token <token> ASSIGN MATCHES LPAREN RPAREN LBRACE RBRACE LSQUARE RSQUARE SEMI
 %token <token> BARRIER CREG QREG IF MEASURE OPAQUE RESET CX U VERSION
+
+/* Define the types for nonterminal symbols */
+%type <root> program stmts
+%type <stmt> stmt decl
+%type <string> version
 
 /* Operator precendence for mathematical operators */
 %left PLUS MINUS

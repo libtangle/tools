@@ -43,6 +43,7 @@ extern "C" int yywrap() {}
 "}"                  return TOKEN(RBRACE);
 "["                  return TOKEN(LSQUARE);
 "]"                  return TOKEN(RSQUARE);
+";"                  return TOKEN(SEMI);
 
 "barrier"            return TOKEN(BARRIER);
 "creg"               return TOKEN(CREG);
