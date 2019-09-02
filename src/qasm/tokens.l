@@ -42,6 +42,7 @@
 ";"                  return TOKEN(SEMI);
 ","                  return TOKEN(COMMA);
 
+"gate"               return TOKEN(GATE);
 "barrier"            return TOKEN(BARRIER);
 "creg"               return TOKEN(CREG);
 "qreg"               return TOKEN(QREG);

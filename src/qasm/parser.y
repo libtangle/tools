@@ -28,7 +28,7 @@ RootNode *root_node;
 %token <token> PLUS MINUS MUL DIV POWER
 %token <token> ASSIGN MATCHES LPAREN RPAREN 
 %token <token> LBRACE RBRACE LSQUARE RSQUARE SEMI COMMA
-%token <token> BARRIER CREG QREG IF MEASURE OPAQUE RESET CX U VERSION
+%token <token> BARRIER CREG QREG IF MEASURE OPAQUE RESET GATE CX U VERSION
 
 /* Define the types for nonterminal symbols */
 %type <root> program stmts
@@ -39,63 +39,49 @@ RootNode *root_node;
 %left MUL DIV
 %right POWER
 
-%start program
+%start mainprogram
 
 %%
 
-program : version stmts { root_node = $2; }
+mainprogram : VERSION REAL SEMI program { root_node = $4; }
         ;
 
-version : VERSION REAL SEMI
-        ;
-
-stmts : stmt { $$ = new RootNode(); $$->statements.push_back($<stmt>1); }
-      | stmts stmt { $1->statements.push_back($<stmt>2); }
+program : statement { $$ = new RootNode(); $$->statements.push_back($<statement>1); }
+      | program statement { $1->statements.push_back($<stmt>2); }
       ;
 
-stmt : decl
-     | quantum_op SEMI { $$ = $1 }
+statement : decl
+          | gatedecl goplist RBRACE
+          | gatedecl RBRACE
+          | OPAQUE IDENTIFIER idlist SEMI
+          | OPAQUE IDENTIFIER LPAREN RPAREN idlist SEMI
+          | OPAQUE IDENTIFIER LPAREN idlist RPAREN idlist SEMI 
+          | qop
+          | IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN qop
+          | BARRIER anylist COMMA
+          ;
+
+decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+     | QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
      ;
 
-decl : QREG SEMI { $$ = new QRegDecl(0); }
-     | CREG SEMI { $$ = new CRegDecl(0); }
-     ;
-
-quantum_op : unitary_op
-           | measure
-           | reset
-           | barrier
-           | if 
-           ;
-
-unitary_op : U LPAREN exp_list RPAREN primary
-           | CX primary COMMA primary
-           | IDENTIFIER primary_list
-           | IDENTIFIER LPAREN RPAREN primary_list
-           | IDENTIFIER LPAREN exp_list RPAREN primary_list
-           ;
-
-exp_list : exp
-         | exp_list COMMA exp
+gatedecl : GATE IDENTIFIER idlist LBRACE
+         | GATE IDENTIFIER LPAREN RPAREN idlist LBRACE
+         | GATE IDENTIFIER LPAREN idlist RPAREN idlist BRACE
          ;
 
-primary : IDENTIFIER
-        | indexed_id
+goplist : uop
+        | BARRIER idlist SEMI
+        | goplist uop
+        | goplist BARRIER idlist SEMI
         ;
 
-indexed_id : IDENTIFIER LSQUARE NNINTEGER RSQUARE
-           ;
+qop : uop
+    | MEASURE argument ASSIGN argument SEMI
+    | RESET argument SEMI
 
-primary_list : primary
-             | primary_list COMMA primary
-             ;
-
-barrier : BARRIER primary_list
-        ;
-
-if : IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN quantum_op
-   ;
-
-measure : MEASURE primary ASSIGN primary
-        ;
-
+uop : U LPAREN explist RPAREN argument SEMI
+    | CX argument COMMA argument SEMI
+    | IDENTIFIER anylist SEMI
+    | IDENTIFIER LPAREN RPAREN anylist SEMI
+    | 
