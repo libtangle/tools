@@ -1,17 +1,59 @@
-#include "ast.h"
-#include <iostream>
-
-extern RootNode* root_node;
 extern int yyparse();
-
-void print_tree(RootNode* root_node)
-{
-    std::cout << &root_node->statements << std::endl;
-}
 
 int main(int argc, char** argv)
 {
     yyparse();
-    print_tree(root_node);
     return 0;
 }
+
+// #include "ast.h"
+// #include "ast_visitor.h"
+// #include <iostream>
+// #include <memory>
+
+// class ExpressionPrinter : public ExpressionVisitor {
+//     std::ostream& os;
+
+//     void visitBinaryExpression(BinaryExpression& binExpr, std::string const& infix)
+//     {
+//         binExpr.left().accept(*this);
+//         os << infix;
+//         binExpr.right().accept(*this);
+//     }
+
+// public:
+//     ExpressionPrinter(std::ostream& ostream)
+//         : os(ostream)
+//     {
+//     }
+//     void print(Expression& expr)
+//     {
+//         expr.accept(*this);
+//         os << '\n';
+//     }
+
+//     void visitAdd(AddExpression& addExpr) override
+//     {
+//         visitBinaryExpression(addExpr, " + ");
+//     }
+//     void visitMultiply(MultiplyExpression& mulExpr) override
+//     {
+//         visitBinaryExpression(mulExpr, " * ");
+//     }
+//     void visitNumber(NumberExpression& numExpr) override
+//     {
+//         os << numExpr.getNumber();
+//     }
+// };
+
+// int main()
+// {
+//     auto expression = std::make_unique<AddExpression>(
+//         std::make_unique<NumberExpression>(3),
+//         std::make_unique<MultiplyExpression>(
+//             std::make_unique<NumberExpression>(4),
+//             std::make_unique<NumberExpression>(6)));
+
+//     ExpressionPrinter printer(std::cout);
+//     printer.print(*expression);
+// }

@@ -69,7 +69,11 @@
 #line 1 "parser.y" /* yacc.c:337  */
 
 
-#include "ast.h"
+#include "ast/ast.h"
+#include "parser.hpp"
+#include <iostream>
+#include <string>
+#include <memory>
 
 extern int yylex();
 
@@ -77,10 +81,8 @@ void yyerror(const char *s) {
     printf("ERROR: %sn", s);
 }
 
-RootNode *root_node;
 
-
-#line 84 "parser.cpp" /* yacc.c:337  */
+#line 86 "parser.cpp" /* yacc.c:337  */
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
 #   if 201103L <= __cplusplus
@@ -162,14 +164,15 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 16 "parser.y" /* yacc.c:352  */
+#line 18 "parser.y" /* yacc.c:352  */
 
-    RootNode *root;
-    Statement *stmt;
     int token;
     std::string *string;
 
-#line 173 "parser.cpp" /* yacc.c:352  */
+    /* AST Types */
+    Statement *stmt;
+
+#line 176 "parser.cpp" /* yacc.c:352  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -476,12 +479,12 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    46,    46,    49,    50,    53,    54,    55,    56,    57,
-      58,    59,    60,    61,    64,    65,    68,    69,    70,    73,
-      74,    75,    76,    79,    80,    81,    83,    84,    85,    86,
-      87,    89,    89,    92,    93,    96,    96,    99,    99,   102,
-     102,   102,   102,   103,   103,   103,   104,   104,   104,   105,
-     106,   109,   109,   109,   109,   109,   109
+       0,    54,    54,    57,    58,    61,    62,    63,    64,    65,
+      66,    67,    68,    69,    72,    74,    78,    79,    80,    83,
+      84,    85,    86,    89,    90,    91,    93,    94,    95,    96,
+      97,    99,    99,   102,   103,   106,   106,   109,   109,   112,
+     112,   112,   112,   113,   113,   113,   114,   114,   114,   115,
+     116,   119,   119,   119,   119,   119,   119
 };
 #endif
 
@@ -1354,26 +1357,20 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 2:
-#line 46 "parser.y" /* yacc.c:1652  */
-    { root_node = (yyvsp[0].root); }
-#line 1361 "parser.cpp" /* yacc.c:1652  */
+        case 14:
+#line 73 "parser.y" /* yacc.c:1652  */
+    { (yyval.stmt) = new QRegDecl("q", 3); }
+#line 1364 "parser.cpp" /* yacc.c:1652  */
     break;
 
-  case 3:
-#line 49 "parser.y" /* yacc.c:1652  */
-    { (yyval.root) = new RootNode(); (yyval.root)->statements.push_back((yyvsp[0].statement)); }
-#line 1367 "parser.cpp" /* yacc.c:1652  */
-    break;
-
-  case 4:
-#line 50 "parser.y" /* yacc.c:1652  */
-    { (yyvsp[-1].root)->statements.push_back((yyvsp[0].stmt)); }
-#line 1373 "parser.cpp" /* yacc.c:1652  */
+  case 15:
+#line 75 "parser.y" /* yacc.c:1652  */
+    { (yyval.stmt) = new QRegDecl("q", 3); }
+#line 1370 "parser.cpp" /* yacc.c:1652  */
     break;
 
 
-#line 1377 "parser.cpp" /* yacc.c:1652  */
+#line 1374 "parser.cpp" /* yacc.c:1652  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

@@ -1,6 +1,10 @@
 %{
 
-#include "ast.h"
+#include "ast/ast.h"
+#include "parser.hpp"
+#include <iostream>
+#include <string>
+#include <memory>
 
 extern int yylex();
 
@@ -8,16 +12,15 @@ void yyerror(const char *s) {
     printf("ERROR: %sn", s);
 }
 
-RootNode *root_node;
-
 %}
 
 /* Represents the many different ways we can access our data */
 %union {
-    RootNode *root;
-    Statement *stmt;
     int token;
     std::string *string;
+
+    /* AST Types */
+    Statement *stmt;
 }
 
 /* Define the terminal symbols (tokens). This matches the `tokens.l`
@@ -31,8 +34,13 @@ RootNode *root_node;
 %token <token> BARRIER CREG QREG IF MEASURE OPAQUE RESET GATE CX U VERSION
 
 /* Define the types for nonterminal symbols */
+
+%type <stmt> decl 
+/*
 %type <root> program mainprogram
-%type <stmt> statement
+%type <stmt> statement decl
+%type <NNINTEGER> NNINTEGER*/
+
 
 /* Operator precendence for mathematical operators */
 %left PLUS MINUS
@@ -43,11 +51,11 @@ RootNode *root_node;
 
 %%
 
-mainprogram : VERSION REAL SEMI program { root_node = $4; }
+mainprogram : VERSION REAL SEMI program 
         ;
 
-program : statement { $$ = new RootNode(); $$->statements.push_back($<statement>1); }
-      | program statement { $1->statements.push_back($<stmt>2); }
+program : statement
+      | program statement
       ;
 
 statement : decl
@@ -62,7 +70,9 @@ statement : decl
           ;
 
 decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+     { $$ = new QRegDecl("q", 3); }
      | CREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+     { $$ = new QRegDecl("q", 3); }
      ;
 
 gatedecl : GATE IDENTIFIER idlist LBRACE

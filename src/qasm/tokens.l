@@ -1,7 +1,7 @@
 %{
 
+#include "ast/ast.h"
 #include <string>
-#include "ast.h"
 #include "parser.hpp"
 
 // SAVE_TOKEN keeps the text of identifiers and numbers.

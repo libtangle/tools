@@ -93,14 +93,15 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 16 "parser.y" /* yacc.c:1921  */
+#line 18 "parser.y" /* yacc.c:1921  */
 
-    RootNode *root;
-    Statement *stmt;
     int token;
     std::string *string;
 
-#line 104 "parser.hpp" /* yacc.c:1921  */
+    /* AST Types */
+    Statement *stmt;
+
+#line 105 "parser.hpp" /* yacc.c:1921  */
 };
 
 typedef union YYSTYPE YYSTYPE;
