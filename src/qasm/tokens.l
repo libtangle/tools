@@ -6,6 +6,7 @@
 
 // SAVE_TOKEN keeps the text of identifiers and numbers.
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
+#define SAVE_NUM yylval.ival = std::stoi(yytext)
 #define TOKEN(t) (yylval.token = t)
 
 %}
@@ -57,7 +58,7 @@
 
 [a-z][A-Za-z0-9_]*                                  SAVE_TOKEN; return IDENTIFIER;
 ([0-9]+\.[0-9]*|[0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?   SAVE_TOKEN; return REAL;
-[1-9]+[0-9]*|0                                      SAVE_TOKEN; return NNINTEGER;
+[1-9]+[0-9]*|0                                      SAVE_NUM; return NNINTEGER;
 
 
 %%

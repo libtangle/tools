@@ -12,4 +12,4 @@ tokens.cpp: tokens.l parser.hpp
 	flex -o $@ $^
 
 parser: parser.cpp main.cpp tokens.cpp
-	g++ -o $@ *.cpp
+	g++ -o $@ *.cpp -std=c++11

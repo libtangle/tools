@@ -1,6 +1,6 @@
-#line 2 "tokens.cpp"
+#line 1 "tokens.cpp"
 
-#line 4 "tokens.cpp"
+#line 3 "tokens.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -529,6 +529,7 @@ char *yytext;
 
 // SAVE_TOKEN keeps the text of identifiers and numbers.
 #define SAVE_TOKEN yylval.string = new std::string(yytext, yyleng)
+#define SAVE_NUM yylval.ival = std::stoi(yytext)
 #define TOKEN(t) (yylval.token = t)
 
 #line 535 "tokens.cpp"
@@ -749,7 +750,7 @@ YY_DECL
 		}
 
 	{
-#line 15 "tokens.l"
+#line 16 "tokens.l"
 
 
 #line 756 "tokens.cpp"
@@ -812,192 +813,192 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 17 "tokens.l"
+#line 18 "tokens.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 19 "tokens.l"
+#line 20 "tokens.l"
 return TOKEN(SIN);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 20 "tokens.l"
+#line 21 "tokens.l"
 return TOKEN(COS);
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 21 "tokens.l"
+#line 22 "tokens.l"
 return TOKEN(TAN);
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 22 "tokens.l"
+#line 23 "tokens.l"
 return TOKEN(EXP);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 23 "tokens.l"
+#line 24 "tokens.l"
 return TOKEN(LN);
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 24 "tokens.l"
+#line 25 "tokens.l"
 return TOKEN(SQRT);
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 25 "tokens.l"
+#line 26 "tokens.l"
 return TOKEN(PI);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 28 "tokens.l"
+#line 29 "tokens.l"
 return TOKEN(PLUS);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 29 "tokens.l"
+#line 30 "tokens.l"
 return TOKEN(MINUS);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 30 "tokens.l"
+#line 31 "tokens.l"
 return TOKEN(MUL);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 31 "tokens.l"
+#line 32 "tokens.l"
 return TOKEN(DIV);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 32 "tokens.l"
+#line 33 "tokens.l"
 return TOKEN(POWER);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 34 "tokens.l"
+#line 35 "tokens.l"
 return TOKEN(ASSIGN);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 35 "tokens.l"
+#line 36 "tokens.l"
 return TOKEN(MATCHES);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 36 "tokens.l"
+#line 37 "tokens.l"
 return TOKEN(LPAREN);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 37 "tokens.l"
+#line 38 "tokens.l"
 return TOKEN(RPAREN);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 38 "tokens.l"
+#line 39 "tokens.l"
 return TOKEN(LBRACE);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 39 "tokens.l"
+#line 40 "tokens.l"
 return TOKEN(RBRACE);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 40 "tokens.l"
+#line 41 "tokens.l"
 return TOKEN(LSQUARE);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 41 "tokens.l"
+#line 42 "tokens.l"
 return TOKEN(RSQUARE);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 42 "tokens.l"
+#line 43 "tokens.l"
 return TOKEN(SEMI);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 43 "tokens.l"
+#line 44 "tokens.l"
 return TOKEN(COMMA);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 45 "tokens.l"
+#line 46 "tokens.l"
 return TOKEN(GATE);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 46 "tokens.l"
+#line 47 "tokens.l"
 return TOKEN(BARRIER);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 47 "tokens.l"
+#line 48 "tokens.l"
 return TOKEN(CREG);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 48 "tokens.l"
+#line 49 "tokens.l"
 return TOKEN(QREG);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 49 "tokens.l"
+#line 50 "tokens.l"
 return TOKEN(IF);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 50 "tokens.l"
+#line 51 "tokens.l"
 return TOKEN(MEASURE);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 51 "tokens.l"
+#line 52 "tokens.l"
 return TOKEN(OPAQUE);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 52 "tokens.l"
+#line 53 "tokens.l"
 return TOKEN(RESET);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 53 "tokens.l"
+#line 54 "tokens.l"
 return TOKEN(VERSION);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 55 "tokens.l"
+#line 56 "tokens.l"
 return TOKEN(CX);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 56 "tokens.l"
+#line 57 "tokens.l"
 return TOKEN(U);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 58 "tokens.l"
+#line 59 "tokens.l"
 SAVE_TOKEN; return IDENTIFIER;
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 59 "tokens.l"
+#line 60 "tokens.l"
 SAVE_TOKEN; return REAL;
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 60 "tokens.l"
-SAVE_TOKEN; return NNINTEGER;
+#line 61 "tokens.l"
+SAVE_NUM; return NNINTEGER;
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 63 "tokens.l"
+#line 64 "tokens.l"
 ECHO;
 	YY_BREAK
 #line 1004 "tokens.cpp"
@@ -2005,18 +2006,18 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 63 "tokens.l"
-/* A Bison parser, made by GNU Bison 3.3.2.  */
+#line 64 "tokens.l"
+/* A Bison parser, made by GNU Bison 2.3.  */
 
-/* Bison interface for Yacc-like parsers in C
+/* Skeleton interface for Bison's Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
-   Inc.
+   Copyright (C) 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006
+   Free Software Foundation, Inc.
 
-   This program is free software: you can redistribute it and/or modify
+   This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
 
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -2024,7 +2025,9 @@ void yyfree (void * ptr )
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor,
+   Boston, MA 02110-1301, USA.  */
 
 /* As a special exception, you may create a larger work that contains
    part or all of the Bison parser skeleton and distribute that work
@@ -2039,88 +2042,111 @@ void yyfree (void * ptr )
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
-
-#ifndef YY_YY_PARSER_HPP_INCLUDED
-# define YY_YY_PARSER_HPP_INCLUDED
-/* Debug traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
-#if YYDEBUG
-extern int yydebug;
-#endif
-
-/* Token type.  */
+/* Tokens.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
-  enum yytokentype
-  {
-    IDENTIFIER = 258,
-    REAL = 259,
-    NNINTEGER = 260,
-    SIN = 261,
-    COS = 262,
-    TAN = 263,
-    EXP = 264,
-    LN = 265,
-    SQRT = 266,
-    PI = 267,
-    PLUS = 268,
-    MINUS = 269,
-    MUL = 270,
-    DIV = 271,
-    POWER = 272,
-    ASSIGN = 273,
-    MATCHES = 274,
-    LPAREN = 275,
-    RPAREN = 276,
-    LBRACE = 277,
-    RBRACE = 278,
-    LSQUARE = 279,
-    RSQUARE = 280,
-    SEMI = 281,
-    COMMA = 282,
-    BARRIER = 283,
-    CREG = 284,
-    QREG = 285,
-    IF = 286,
-    MEASURE = 287,
-    OPAQUE = 288,
-    RESET = 289,
-    GATE = 290,
-    CX = 291,
-    U = 292,
-    VERSION = 293
-  };
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     IDENTIFIER = 258,
+     REAL = 259,
+     NNINTEGER = 260,
+     SIN = 261,
+     COS = 262,
+     TAN = 263,
+     EXP = 264,
+     LN = 265,
+     SQRT = 266,
+     PI = 267,
+     PLUS = 268,
+     MINUS = 269,
+     MUL = 270,
+     DIV = 271,
+     POWER = 272,
+     ASSIGN = 273,
+     MATCHES = 274,
+     LPAREN = 275,
+     RPAREN = 276,
+     LBRACE = 277,
+     RBRACE = 278,
+     LSQUARE = 279,
+     RSQUARE = 280,
+     SEMI = 281,
+     COMMA = 282,
+     BARRIER = 283,
+     CREG = 284,
+     QREG = 285,
+     IF = 286,
+     MEASURE = 287,
+     OPAQUE = 288,
+     RESET = 289,
+     GATE = 290,
+     CX = 291,
+     U = 292,
+     VERSION = 293
+   };
 #endif
+/* Tokens.  */
+#define IDENTIFIER 258
+#define REAL 259
+#define NNINTEGER 260
+#define SIN 261
+#define COS 262
+#define TAN 263
+#define EXP 264
+#define LN 265
+#define SQRT 266
+#define PI 267
+#define PLUS 268
+#define MINUS 269
+#define MUL 270
+#define DIV 271
+#define POWER 272
+#define ASSIGN 273
+#define MATCHES 274
+#define LPAREN 275
+#define RPAREN 276
+#define LBRACE 277
+#define RBRACE 278
+#define LSQUARE 279
+#define RSQUARE 280
+#define SEMI 281
+#define COMMA 282
+#define BARRIER 283
+#define CREG 284
+#define QREG 285
+#define IF 286
+#define MEASURE 287
+#define OPAQUE 288
+#define RESET 289
+#define GATE 290
+#define CX 291
+#define U 292
+#define VERSION 293
 
-/* Value type.  */
+
+
+
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
-union YYSTYPE
+typedef union YYSTYPE
+#line 18 "parser.y"
 {
-#line 18 "parser.y" /* yacc.c:1921  */
-
     int token;
     std::string *string;
+    int ival;
+    // int nnint;
 
     /* AST Types */
     Statement *stmt;
-
-#line 105 "parser.hpp" /* yacc.c:1921  */
-};
-
-typedef union YYSTYPE YYSTYPE;
-# define YYSTYPE_IS_TRIVIAL 1
+}
+/* Line 1529 of yacc.c.  */
+#line 135 "parser.hpp"
+	YYSTYPE;
+# define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
+# define YYSTYPE_IS_TRIVIAL 1
 #endif
-
 
 extern YYSTYPE yylval;
 
-int yyparse (void);
-
-#endif /* !YY_YY_PARSER_HPP_INCLUDED  */
 

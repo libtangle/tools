@@ -18,6 +18,8 @@ void yyerror(const char *s) {
 %union {
     int token;
     std::string *string;
+    int ival;
+    // int nnint;
 
     /* AST Types */
     Statement *stmt;
@@ -26,7 +28,8 @@ void yyerror(const char *s) {
 /* Define the terminal symbols (tokens). This matches the `tokens.l`
    file. We also define the node type they represent.
 */
-%token <string> IDENTIFIER REAL NNINTEGER
+%token <string> IDENTIFIER REAL
+%token <ival> NNINTEGER
 %token <token> SIN COS TAN EXP LN SQRT PI
 %token <token> PLUS MINUS MUL DIV POWER
 %token <token> ASSIGN MATCHES LPAREN RPAREN 
@@ -36,7 +39,6 @@ void yyerror(const char *s) {
 /* Define the types for nonterminal symbols */
 
 %type <stmt> decl 
-%type <string> identifier
 /*
 %type <root> program mainprogram
 %type <stmt> statement decl
@@ -70,9 +72,9 @@ statement : decl
           | BARRIER mixedlist SEMI
           ;
 
-decl : QREG identifier LSQUARE NNINTEGER RSQUARE SEMI
-     { $$ = new QRegDecl($2, $4); }
-     | CREG identifier LSQUARE NNINTEGER RSQUARE SEMI
+decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
+     { $$ = new CRegDecl($2, $4); }
+     | CREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
      { $$ = new CRegDecl($2, $4); }
      ;
 
@@ -118,7 +120,3 @@ exp : REAL | NNINTEGER | PI | IDENTIFIER
     ;
 
 unaryop : SIN | COS | TAN | EXP | LN | SQRT
-
-identifier : IDENTIFIER
-           { $$ = *yylval.string; }
-           ;
