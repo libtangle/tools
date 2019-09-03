@@ -15,7 +15,8 @@
 
 %%
 
-[ \t\n]                                             ;
+[ \t\n]              ;
+"//".*               ;
 
 "sin"                return TOKEN(SIN);
 "cos"                return TOKEN(COS);

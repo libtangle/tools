@@ -1,60 +1,93 @@
 #ifndef TANGLE_QASM_AST
 #define TANGLE_QASM_AST
 
-// #include <iostream>
-// #include <memory>
-// #include <string>
-
-// class Statement {
-// public:
-//     virtual ~Statement() = 0;
-// };
-// inline Statement::~Statement() = default;
-// using StatementPtr = std::unique_ptr<Statement>;
-
-// class Decl : public Statement {
-//     std::string* label;
-//     uint size;
-
-// public:
-//     Decl(std::string* label, uint size)
-//         : label(label)
-//         , size(size)
-//     {
-//         std::cout << "Declared " << label << " of size " << size << std::endl;
-//     }
-// };
-
-// class CRegDecl : public Decl {
-// public:
-//     using Decl::Decl;
-// };
-
-// class QRegDecl : public Decl {
-// public:
-//     using Decl::Decl;
-// };
-
+#include <iostream>
 #include <string>
+
+//----------------------------------------------
+// BASE STATMENT CLASS
+//----------------------------------------------
 
 class Statement {
 public:
-    virtual ~Statement () {}
-    virtual Statement *clone() = 0;
+    virtual ~Statement() {}
+    virtual Statement* clone() = 0;
 };
 
-// For Declarations
-class CRegDecl : public Statement {
-    std::string *label;
+//----------------------------------------------
+// UTILITY DECLARATIONS
+//----------------------------------------------
+
+using IdentifierList = std::vector<std::string>;
+
+//----------------------------------------------
+// REGISTER DECLARATION
+//----------------------------------------------
+
+class Decl : public Statement {
+    std::string* label;
     int size;
 
 public:
-    CRegDecl(std::string *label, int size) : label(label), size(size) {}
-    CRegDecl(const CRegDecl &other) {
+    Decl(std::string* label, int size)
+        : label(label)
+        , size(size)
+    {
+        std::cout << "Decl: " << *label << "[" << size << "]" << std::endl;
+    }
+    Decl(const Decl& other)
+    {
         label = other.label;
         size = other.size;
     }
-    virtual Statement *clone () { return new CRegDecl (*this); }
+    virtual Statement* clone() { return new Decl(*this); }
+};
+
+class CRegDecl : public Decl {
+public:
+    using Decl::Decl;
+};
+
+class QRegDecl : public Decl {
+public:
+    using Decl::Decl;
+};
+
+//----------------------------------------------
+// GATE DEFINITION
+//----------------------------------------------
+
+class GateDef : public Statement {
+    std::string* label;
+    IdentifierList *params;
+    IdentifierList *arguments;
+
+public:
+    GateDef(std::string* label, IdentifierList *args)
+        : label(label)
+        , arguments(args)
+    {
+        std::cout << "Gate: (" << *label << std::endl;
+        for (std::string a : *arguments) {
+            std::cout << a;
+        }
+        std::cout << ")" std::endl;
+    }
+
+    GateDef(std::string* label, IdentifierList *params, IdentifierList *args)
+        : label(label)
+        , params(params)
+        , arguments(args)
+    {
+        std::cout << "Gate: " << *label << ", with params" << std::endl;
+    }
+
+    GateDef(const GateDef& other)
+    {
+        label = other.label;
+        params = other.params;
+    }
+    virtual Statement* clone() { return new GateDef(*this); }
 };
 
 #endif

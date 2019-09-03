@@ -4,6 +4,7 @@
 #include "parser.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
 #include <memory>
 
 extern int yylex();
@@ -23,6 +24,7 @@ void yyerror(const char *s) {
 
     /* AST Types */
     Statement *stmt;
+    IdentifierList idlist;
 }
 
 /* Define the terminal symbols (tokens). This matches the `tokens.l`
@@ -38,7 +40,8 @@ void yyerror(const char *s) {
 
 /* Define the types for nonterminal symbols */
 
-%type <stmt> decl 
+%type <stmt> decl gatedecl
+%type <idlist> idlist
 /*
 %type <root> program mainprogram
 %type <stmt> statement decl
@@ -79,8 +82,11 @@ decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
      ;
 
 gatedecl : GATE IDENTIFIER idlist LBRACE
+         { $$ = new GateDef($2, $3); }
          | GATE IDENTIFIER LPAREN RPAREN idlist LBRACE
+         { $$ = new GateDef($2, $5); }
          | GATE IDENTIFIER LPAREN idlist RPAREN idlist LBRACE
+         { $$ = new GateDef($2, $4, $6); }
          ;
 
 goplist : uop
@@ -99,7 +105,10 @@ uop : U LPAREN explist RPAREN argument SEMI
     | IDENTIFIER LPAREN RPAREN mixedlist SEMI
     | IDENTIFIER LPAREN explist RPAREN mixedlist SEMI
 
-idlist : IDENTIFIER | idlist COMMA IDENTIFIER
+idlist : IDENTIFIER 
+       { $$ = new std::vector<std::string>(); }
+       | idlist COMMA IDENTIFIER
+       { $$ = $1; }
        ;
 
 mixedlist : idlist

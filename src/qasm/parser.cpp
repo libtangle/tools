@@ -153,6 +153,7 @@
 #include "parser.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
 #include <memory>
 
 extern int yylex();
@@ -183,7 +184,7 @@ void yyerror(const char *s) {
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 18 "parser.y"
+#line 19 "parser.y"
 {
     int token;
     std::string *string;
@@ -192,9 +193,10 @@ typedef union YYSTYPE
 
     /* AST Types */
     Statement *stmt;
+    IdentifierList idlist;
 }
 /* Line 193 of yacc.c.  */
-#line 198 "parser.cpp"
+#line 200 "parser.cpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -207,7 +209,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 211 "parser.cpp"
+#line 213 "parser.cpp"
 
 #ifdef short
 # undef short
@@ -519,12 +521,12 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    57,    57,    60,    61,    64,    65,    66,    67,    68,
-      69,    70,    71,    72,    75,    77,    81,    82,    83,    86,
-      87,    88,    89,    92,    93,    94,    96,    97,    98,    99,
-     100,   102,   102,   105,   106,   109,   109,   112,   112,   115,
-     115,   115,   115,   116,   116,   116,   117,   117,   117,   118,
-     119,   122,   122,   122,   122,   122,   122
+       0,    60,    60,    63,    64,    67,    68,    69,    70,    71,
+      72,    73,    74,    75,    78,    80,    84,    86,    88,    92,
+      93,    94,    95,    98,    99,   100,   102,   103,   104,   105,
+     106,   108,   110,   114,   115,   118,   118,   121,   121,   124,
+     124,   124,   124,   125,   125,   125,   126,   126,   126,   127,
+     128,   131,   131,   131,   131,   131,   131
 };
 #endif
 
@@ -1520,18 +1522,43 @@ yyreduce:
   switch (yyn)
     {
         case 14:
-#line 76 "parser.y"
+#line 79 "parser.y"
     { (yyval.stmt) = new CRegDecl((yyvsp[(2) - (6)].string), (yyvsp[(4) - (6)].ival)); ;}
     break;
 
   case 15:
-#line 78 "parser.y"
+#line 81 "parser.y"
     { (yyval.stmt) = new CRegDecl((yyvsp[(2) - (6)].string), (yyvsp[(4) - (6)].ival)); ;}
+    break;
+
+  case 16:
+#line 85 "parser.y"
+    { (yyval.stmt) = new GateDef((yyvsp[(2) - (4)].string), (yyvsp[(3) - (4)].idlist)); ;}
+    break;
+
+  case 17:
+#line 87 "parser.y"
+    { (yyval.stmt) = new GateDef((yyvsp[(2) - (6)].string), (yyvsp[(5) - (6)].idlist)); ;}
+    break;
+
+  case 18:
+#line 89 "parser.y"
+    { (yyval.stmt) = new GateDef((yyvsp[(2) - (7)].string), (yyvsp[(4) - (7)].idlist), (yyvsp[(6) - (7)].idlist)); ;}
+    break;
+
+  case 31:
+#line 109 "parser.y"
+    { (yyval.idlist) = new std::vector<std::string>(); ;}
+    break;
+
+  case 32:
+#line 111 "parser.y"
+    { (yyval.idlist) = (yyvsp[(1) - (3)].idlist); ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1535 "parser.cpp"
+#line 1562 "parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

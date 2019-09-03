@@ -120,7 +120,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 18 "parser.y"
+#line 19 "parser.y"
 {
     int token;
     std::string *string;
@@ -129,9 +129,10 @@ typedef union YYSTYPE
 
     /* AST Types */
     Statement *stmt;
+    IdentifierList idlist;
 }
 /* Line 1529 of yacc.c.  */
-#line 135 "parser.hpp"
+#line 136 "parser.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
