@@ -36,6 +36,7 @@ void yyerror(const char *s) {
 /* Define the types for nonterminal symbols */
 
 %type <stmt> decl 
+%type <string> identifier
 /*
 %type <root> program mainprogram
 %type <stmt> statement decl
@@ -69,10 +70,10 @@ statement : decl
           | BARRIER mixedlist SEMI
           ;
 
-decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
-     { $$ = new QRegDecl("q", 3); }
-     | CREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
-     { $$ = new QRegDecl("q", 3); }
+decl : QREG identifier LSQUARE NNINTEGER RSQUARE SEMI
+     { $$ = new QRegDecl($2, $4); }
+     | CREG identifier LSQUARE NNINTEGER RSQUARE SEMI
+     { $$ = new CRegDecl($2, $4); }
      ;
 
 gatedecl : GATE IDENTIFIER idlist LBRACE
@@ -117,3 +118,7 @@ exp : REAL | NNINTEGER | PI | IDENTIFIER
     ;
 
 unaryop : SIN | COS | TAN | EXP | LN | SQRT
+
+identifier : IDENTIFIER
+           { $$ = *yylval.string; }
+           ;
