@@ -2145,10 +2145,11 @@ typedef union YYSTYPE
 
     /* AST Types */
     Statement *stmt;
+    StatementList *stmtlist;
     IdentifierList *idlist;
 }
 /* Line 1529 of yacc.c.  */
-#line 136 "parser.hpp"
+#line 137 "parser.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

@@ -24,6 +24,7 @@ void yyerror(const char *s) {
 
     /* AST Types */
     Statement *stmt;
+    StatementList *stmtlist;
     IdentifierList *idlist;
 }
 
@@ -40,13 +41,9 @@ void yyerror(const char *s) {
 
 /* Define the types for nonterminal symbols */
 
-%type <stmt> decl gatedecl
+%type <stmtlist> mainprogram program
+%type <stmt> statement decl gatedecl
 %type <idlist> idlist
-/*
-%type <root> program mainprogram
-%type <stmt> statement decl
-%type <NNINTEGER> NNINTEGER*/
-
 
 /* Operator precendence for mathematical operators */
 %left PLUS MINUS
@@ -57,23 +54,28 @@ void yyerror(const char *s) {
 
 %%
 
-mainprogram : VERSION REAL SEMI program 
-        ;
+mainprogram : VERSION REAL SEMI program
+            { $$ = $4; }
+            ;
 
 program : statement
-      | program statement
-      ;
+        { $$ = new StatementList(); $$->push_back($1); }
+        | program statement
+        { $$ = $1; $$->push_back($2); }
+        ;
 
 statement : decl
-          | gatedecl goplist RBRACE
-          | gatedecl RBRACE
+          | gatedecl goplist RBRACE { $$ = $1; }
+          | gatedecl RBRACE { $$ = $1; }
+          ;
+          /*
           | OPAQUE IDENTIFIER idlist SEMI
           | OPAQUE IDENTIFIER LPAREN RPAREN idlist SEMI
           | OPAQUE IDENTIFIER LPAREN idlist RPAREN idlist SEMI 
           | qop
           | IF LPAREN IDENTIFIER MATCHES NNINTEGER RPAREN qop
           | BARRIER mixedlist SEMI
-          ;
+          ;*/
 
 decl : QREG IDENTIFIER LSQUARE NNINTEGER RSQUARE SEMI
      { $$ = new CRegDecl($2, $4); }
@@ -106,7 +108,7 @@ uop : U LPAREN explist RPAREN argument SEMI
     | IDENTIFIER LPAREN explist RPAREN mixedlist SEMI
 
 idlist : IDENTIFIER 
-       { $$ = new std::vector<std::string>(); $$->push_back(*$1); }
+       { $$ = new IdentifierList(); $$->push_back(*$1); }
        | idlist COMMA IDENTIFIER
        { $$ = $1; $$->push_back(*$3); }
        ;

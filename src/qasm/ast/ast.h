@@ -20,6 +20,7 @@ public:
 //----------------------------------------------
 
 using IdentifierList = std::vector<std::string>;
+using StatementList = std::vector<Statement*>;
 
 //----------------------------------------------
 // REGISTER DECLARATION
