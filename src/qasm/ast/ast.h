@@ -61,32 +61,32 @@ public:
 
 class GateDef : public Statement {
     std::string* label;
-    IdentifierList *params;
-    IdentifierList *arguments;
+    IdentifierList* params;
+    IdentifierList* arguments;
 
 public:
-    GateDef(std::string* label, IdentifierList *args)
+    GateDef(std::string* label, IdentifierList* args)
         : label(label)
         , arguments(args)
     {
         std::cout << "Gate: " << *label << " [";
-        for(auto value: *arguments) {
+        for (auto value : *arguments) {
             std::cout << value;
         }
         std::cout << "]" << std::endl;
     }
 
-    GateDef(std::string* label, IdentifierList *params, IdentifierList *args)
+    GateDef(std::string* label, IdentifierList* params, IdentifierList* args)
         : label(label)
         , params(params)
         , arguments(args)
     {
-        std::cout << "Gate: " << *label << " (" ;
-        for(auto value: *params) {
+        std::cout << "Gate: " << *label << " (";
+        for (auto value : *params) {
             std::cout << value << " ";
         }
         std::cout << ") [";
-        for(auto value: *arguments) {
+        for (auto value : *arguments) {
             std::cout << value << " ";
         }
         std::cout << "]" << std::endl;

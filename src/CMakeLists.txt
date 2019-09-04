@@ -5,6 +5,7 @@ set(tangle_src
 
 # Compile the library
 add_library(${TANGLE_LIB_NAME} ${TANGLE_LIB_TYPE} ${tangle_src})
+target_include_directories(${TANGLE_LIB_NAME} PUBLIC include)
 
 # Compile the executable
 add_executable(tangle_exe main.cpp)
