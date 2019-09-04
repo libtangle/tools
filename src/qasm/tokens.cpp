@@ -2145,7 +2145,7 @@ typedef union YYSTYPE
 
     /* AST Types */
     Statement *stmt;
-    IdentifierList idlist;
+    IdentifierList *idlist;
 }
 /* Line 1529 of yacc.c.  */
 #line 136 "parser.hpp"

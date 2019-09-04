@@ -193,7 +193,7 @@ typedef union YYSTYPE
 
     /* AST Types */
     Statement *stmt;
-    IdentifierList idlist;
+    IdentifierList *idlist;
 }
 /* Line 193 of yacc.c.  */
 #line 200 "parser.cpp"
@@ -1548,12 +1548,12 @@ yyreduce:
 
   case 31:
 #line 109 "parser.y"
-    { (yyval.idlist) = new std::vector<std::string>(); ;}
+    { (yyval.idlist) = new std::vector<std::string>(); (yyval.idlist)->push_back(*(yyvsp[(1) - (1)].string)); ;}
     break;
 
   case 32:
 #line 111 "parser.y"
-    { (yyval.idlist) = (yyvsp[(1) - (3)].idlist); ;}
+    { (yyval.idlist) = (yyvsp[(1) - (3)].idlist); (yyval.idlist)->push_back(*(yyvsp[(3) - (3)].string)); ;}
     break;
 
 

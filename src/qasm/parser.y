@@ -24,7 +24,7 @@ void yyerror(const char *s) {
 
     /* AST Types */
     Statement *stmt;
-    IdentifierList idlist;
+    IdentifierList *idlist;
 }
 
 /* Define the terminal symbols (tokens). This matches the `tokens.l`
@@ -106,9 +106,9 @@ uop : U LPAREN explist RPAREN argument SEMI
     | IDENTIFIER LPAREN explist RPAREN mixedlist SEMI
 
 idlist : IDENTIFIER 
-       { $$ = new std::vector<std::string>(); }
+       { $$ = new std::vector<std::string>(); $$->push_back(*$1); }
        | idlist COMMA IDENTIFIER
-       { $$ = $1; }
+       { $$ = $1; $$->push_back(*$3); }
        ;
 
 mixedlist : idlist

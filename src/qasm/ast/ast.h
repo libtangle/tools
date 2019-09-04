@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 //----------------------------------------------
 // BASE STATMENT CLASS
@@ -67,11 +68,11 @@ public:
         : label(label)
         , arguments(args)
     {
-        std::cout << "Gate: (" << *label << std::endl;
-        for (std::string a : *arguments) {
-            std::cout << a;
+        std::cout << "Gate: " << *label << " [";
+        for(auto value: *arguments) {
+            std::cout << value;
         }
-        std::cout << ")" std::endl;
+        std::cout << "]" << std::endl;
     }
 
     GateDef(std::string* label, IdentifierList *params, IdentifierList *args)
@@ -79,7 +80,15 @@ public:
         , params(params)
         , arguments(args)
     {
-        std::cout << "Gate: " << *label << ", with params" << std::endl;
+        std::cout << "Gate: " << *label << " (" ;
+        for(auto value: *params) {
+            std::cout << value << " ";
+        }
+        std::cout << ") [";
+        for(auto value: *arguments) {
+            std::cout << value << " ";
+        }
+        std::cout << "]" << std::endl;
     }
 
     GateDef(const GateDef& other)
