@@ -5,10 +5,12 @@
 #include <vector>
 #include "tables.h"
 
-namespace tangle::clifford {
+namespace tangle::clifford
+{
 
-class QubitVertex {
- public:
+class QubitVertex
+{
+public:
   int vop_code;
   std::set<int> neighbors;
 
@@ -26,12 +28,14 @@ class QubitVertex {
   void print();
 };
 
-class QubitGraph {
+class QubitGraph
+{
+public:
   std::vector<QubitVertex> vertices;
 
- public:
-  QubitGraph(int n);
+  QubitGraph() {}
 
+  void initialize_graph(int n);
   void toggle_edge(int a, int b);
   bool has_edge(int a, int b);
   void add_edge(int a, int b);
@@ -40,12 +44,18 @@ class QubitGraph {
   void print();
 };
 
-enum MeasurementBasis { Z, X, Y };
+enum MeasurementBasis
+{
+  X = 1,
+  Y = 2,
+  Z = 3
+};
 
-class GraphState {
+class GraphState
+{
   QubitGraph graph;
 
- public:
+public:
   GraphState(int num_qubits);
 
   void apply(int vop, int target);
@@ -60,16 +70,16 @@ class GraphState {
   void cz(int control, int target);
   void cx(int control, int target);
 
-  void measure(int target, MeasurementBasis basis);
+  int measure(int target, MeasurementBasis basis);
 
   void reduce_vop(int a, int b);
   void local_complementation(int a);
 
-  void bare_measure_x(int target, int choice);
-  void bare_measure_y(int target, int choice);
-  void bare_measure_z(int target, int choice);
+  int bare_measure_x(int target, int choice);
+  int bare_measure_y(int target, int choice);
+  int bare_measure_z(int target, int choice);
 };
 
-}  // namespace tangle::clifford
+} // namespace tangle::clifford
 
 #endif

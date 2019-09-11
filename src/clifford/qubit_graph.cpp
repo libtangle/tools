@@ -3,7 +3,11 @@
 
 namespace tangle::clifford {
 
-QubitGraph::QubitGraph(int n) {
+// QubitGraph::QubitGraph() {
+  
+// }
+
+void QubitGraph::initialize_graph(int n) {
   for (int i = 0; i < n; i++) {
     QubitVertex *vertex = new QubitVertex();
     vertices.push_back(*vertex);
