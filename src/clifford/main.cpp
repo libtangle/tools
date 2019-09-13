@@ -4,23 +4,32 @@ using namespace tangle::clifford;
 
 #include <iostream>
 #include <time.h>
+#include <vector>
+#include <utility>
+// #include <functional>
 
 int main()
 {
+
   srand(time(NULL));
 
   /* Example of a GHZ State */
+  int n = 5000;
 
-  GraphState g(2);
+  GraphState g(n);
 
   // g.h(0);
-  g.cz(0, 1);
+  // g.cx(0, 1);
+  g.x(n / 2);
 
-  // std::cout << g.measure(0) << g.measure(1) << std::endl;
+  std::cout << "Measured Value: ";
 
-  // int a = rand() % 2;
+  for (int i = n - 1; i >= 0; i--)
+  {
+    std::cout << g.measure(i);
+  }
 
-  // std::cout << a << std::endl;
+  std::cout << std::endl;
 
   return 0;
 }

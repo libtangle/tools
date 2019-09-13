@@ -53,6 +53,7 @@ enum MeasurementBasis
 
 class GraphState
 {
+  int n_qubits;
   QubitGraph graph;
 
 public:

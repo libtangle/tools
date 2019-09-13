@@ -1,11 +1,14 @@
 #include "clifford.h"
 #include <vector>
+#include <algorithm>
+#include <utility>
 
 namespace tangle::clifford
 {
 
 GraphState::GraphState(int num_qubits)
 {
+    n_qubits = num_qubits;
     graph.initialize_graph(num_qubits);
 }
 
@@ -113,7 +116,7 @@ void GraphState::reduce_vop(int a, int b)
     {
         if (d[i] == DecompositionGate::NegSqrtIX)
         {
-            this->local_complementation(a);
+            // this->local_complementation(a);
         }
         else if (d[i] == DecompositionGate::SqrtIZ)
         {
@@ -128,9 +131,9 @@ void GraphState::local_complementation(int a)
 {
     std::vector<int> ngbh(graph.vertices[a].neighbors.begin(), graph.vertices[a].neighbors.end());
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < n_qubits; i++)
     {
-        for (int j = i + 1; j < 4; j++)
+        for (int j = i + 1; j < n_qubits; j++)
         {
             graph.toggle_edge(i, j);
         }
@@ -146,11 +149,106 @@ void GraphState::local_complementation(int a)
 
 int GraphState::bare_measure_x(int target, int choice)
 {
-    return 0;
+    // std::vector<int> ngbh(graph.vertices[target].neighbors);
+
+    if (graph.vertices[target].neighbors.size() == 0)
+    {
+        return 0;
+    }
+
+    int b = *graph.vertices[target].neighbors.begin();
+
+    std::set<int> result;
+
+    if (choice == 1)
+    {
+        graph.vertices[b].apply_opposite(9);
+        graph.vertices[target].apply_opposite(3);
+
+        std::set_difference(graph.vertices[b].neighbors.begin(), graph.vertices[b].neighbors.end(), graph.vertices[target].neighbors.begin(), graph.vertices[target].neighbors.end(), std::inserter(result, result.end()));
+    }
+    else
+    {
+        graph.vertices[b].apply_opposite(11);
+
+        std::set_difference(graph.vertices[target].neighbors.begin(), graph.vertices[target].neighbors.end(), graph.vertices[b].neighbors.begin(), graph.vertices[b].neighbors.end(), std::inserter(result, result.end()));
+    }
+
+    for (int n : result)
+    {
+        if (n != target)
+            graph.vertices[n].apply_opposite(3);
+    }
+
+    std::vector<int> ngbh_a(graph.vertices[target].neighbors.begin(), graph.vertices[target].neighbors.end());
+    std::vector<int> ngbh_b(graph.vertices[b].neighbors.begin(), graph.vertices[b].neighbors.end());
+
+    // // Toggle the edges a and b
+    std::set<std::pair<int, int>> done;
+
+    for (int i : ngbh_a)
+    {
+        for (int j : ngbh_b)
+        {
+            std::pair<int, int> pair = std::make_pair(i, j);
+
+            if (i != j && !done.count(pair))
+            {
+                graph.toggle_edge(i, j);
+
+                done.insert(pair);
+                done.insert(std::make_pair(j, i));
+            }
+        }
+    }
+
+    graph.vertices[target].apply_opposite(choice ? 5 : 6);
+
+    return choice;
 }
 
-int GraphState::bare_measure_y(int target, int choice) { return 0; }
-int GraphState::bare_measure_z(int target, int choice) { return 0; }
+int GraphState::bare_measure_y(int target, int choice)
+{
+    for (int i : graph.vertices[target].neighbors)
+    {
+        graph.vertices[target].apply_opposite(choice ? 5 : 6);
+    }
+
+    std::set<int> ngbh = graph.vertices[target].neighbors;
+    ngbh.insert(target);
+
+    for (int i = 0; i < ngbh.size(); i++)
+    {
+        for (int j = i + 1; i < ngbh.size(); i++)
+        {
+            graph.toggle_edge(i, j);
+        }
+    }
+
+    graph.vertices[target].apply_opposite(choice ? 5 : 6);
+
+    return choice;
+}
+
+int GraphState::bare_measure_z(int target, int choice)
+{
+    std::set<int> ngbh = graph.vertices[target].neighbors;
+
+    for (int i : ngbh)
+    {
+        graph.remove_edge(target, i);
+        if (choice)
+        {
+            graph.vertices[i].apply_opposite(3);
+        }
+    }
+
+    if (choice)
+        graph.vertices[target].apply_opposite(1);
+    graph.vertices[target].apply_opposite(10);
+
+    return choice;
+}
 // };
 
 } // namespace tangle::clifford
