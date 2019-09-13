@@ -1,4 +1,5 @@
 #include "clifford.h"
+#include <vector>
 
 namespace tangle::clifford
 {
@@ -125,12 +126,31 @@ void GraphState::reduce_vop(int a, int b)
 
 void GraphState::local_complementation(int a)
 {
-}
-//   void local_complementation(int a);
+    std::vector<int> ngbh(graph.vertices[a].neighbors.begin(), graph.vertices[a].neighbors.end());
 
-//   void bare_measure_x(int target, int choice);
-//   void bare_measure_y(int target, int choice);
-//   void bare_measure_z(int target, int choice);
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = i + 1; j < 4; j++)
+        {
+            graph.toggle_edge(i, j);
+        }
+    }
+
+    graph.vertices[a].apply_opposite(14);
+
+    for (auto i : graph.vertices[a].neighbors)
+    {
+        graph.vertices[i].apply_opposite(6);
+    }
+}
+
+int GraphState::bare_measure_x(int target, int choice)
+{
+    return 0;
+}
+
+int GraphState::bare_measure_y(int target, int choice) { return 0; }
+int GraphState::bare_measure_z(int target, int choice) { return 0; }
 // };
 
 } // namespace tangle::clifford

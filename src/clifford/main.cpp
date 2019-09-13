@@ -9,14 +9,18 @@ int main()
 {
   srand(time(NULL));
 
-  QubitGraph g;
-  g.initialize_graph(4);
-  g.add_edge(0, 3);
-  g.print();
+  /* Example of a GHZ State */
 
-  int a = rand() % 2;
+  GraphState g(2);
 
-  std::cout << a << std::endl;
+  // g.h(0);
+  g.cz(0, 1);
+
+  // std::cout << g.measure(0) << g.measure(1) << std::endl;
+
+  // int a = rand() % 2;
+
+  // std::cout << a << std::endl;
 
   return 0;
 }

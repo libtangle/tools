@@ -70,7 +70,7 @@ public:
   void cz(int control, int target);
   void cx(int control, int target);
 
-  int measure(int target, MeasurementBasis basis);
+  int measure(int target, MeasurementBasis basis = MeasurementBasis::Z);
 
   void reduce_vop(int a, int b);
   void local_complementation(int a);
