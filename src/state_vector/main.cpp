@@ -2,7 +2,9 @@
 
 int main()
 {
-    StateVector v(30);
+    // for (int i = 0; i < 10; i++)
+    // {
+    StateVector v(28);
     // v.print();
 
     Mat2x2 x;
@@ -12,8 +14,22 @@ int main()
     x.yx = 1;
     x.yy = 0;
 
-    v.apply_gate(1, x);
-    v.apply_gate(0, x);
+    for (int i = 0; i < 28; i++)
+    {
+        v.apply_antidiagonal_gate(i, x);
+    }
+
+    for (int i = 0; i < 28; i++)
+    {
+        v.apply_antidiagonal_gate(i, x);
+    }
+
+    for (int i = 0; i < 28; i++)
+    {
+        v.apply_antidiagonal_gate(i, x);
+    }
+
+    // }
 
     // v.print();
 

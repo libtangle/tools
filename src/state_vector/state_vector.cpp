@@ -1,5 +1,5 @@
 #include "state_vector.h"
-
+#include "omp.h"
 #include <iostream>
 #include <stdlib.h>
 
@@ -15,6 +15,7 @@ StateVector::StateVector(int num_qubits)
     // Initialize the state vector
     state[0] = complex(1);
 
+#pragma omp parallel for
     for (std::size_t i = 1; i < num_amps; i++)
     {
         state[i] = complex(0);
