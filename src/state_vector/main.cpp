@@ -2,7 +2,7 @@
 
 int main()
 {
-    StateVector v(3);
+    StateVector v(30);
     // v.print();
 
     Mat2x2 x;
@@ -13,10 +13,9 @@ int main()
     x.yy = 0;
 
     v.apply_gate(1, x);
-    v.apply_gate(, x);
     v.apply_gate(0, x);
 
-    v.print();
+    // v.print();
 
     return 0;
 }
