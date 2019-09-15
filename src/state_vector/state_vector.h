@@ -19,11 +19,18 @@ public:
     void apply_gate(int target, Mat2x2 const &m);
     void apply_diagonal_gate(int target, Mat2x2 const &m);
     void apply_antidiagonal_gate(int target, Mat2x2 const &m);
+    void apply_phase_shift_gate(int target, complex phase);
     void apply_controlled_gate(int control, int target, Mat2x2 const &m);
+
+    void x(int target);
+    void z(int target);
 
     // Utility Functions
     void print();
 };
+
+// Gate Definitions
+extern Mat2x2 _x;
 
 // } // namespace tangle::state_vector
 

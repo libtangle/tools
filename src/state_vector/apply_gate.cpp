@@ -94,10 +94,21 @@ void StateVector::apply_antidiagonal_gate(int target, Mat2x2 const &m)
     }
 }
 
-inline bool check_bit(std::size_t x, std::size_t t)
+// inline bool check_bit(std::size_t x, std::size_t t)
+// {
+//     std::size_t one = (std::size_t)1;
+//     return x & (one << t);
+// }
+
+std::size_t insert_zero(int n, int target)
 {
-    std::size_t one = (std::size_t)1;
-    return x & (one << t);
+    int mask = (1 << target) - 1;
+    return (n & mask) | ((n & (~mask)) << 1);
+}
+
+std::size_t insert_one(int n, int target)
+{
+    return insert_zero(n, target) | (1 << target);
 }
 
 void StateVector::apply_diagonal_gate(int target, Mat2x2 const &m)
@@ -106,8 +117,27 @@ void StateVector::apply_diagonal_gate(int target, Mat2x2 const &m)
     complex d = m.yy;
 
 #pragma omp parallel for
-    for (std::size_t i = 0; i < num_amps; i++)
+    for (std::size_t i = 0; i < num_amps / 2; i++)
     {
-        state[i] *= check_bit(i, target) ? d : a;
+        int idx = insert_zero(i, target);
+        state[idx] *= a;
+    }
+
+#pragma omp parallel for
+    for (std::size_t i = 0; i < num_amps / 2; i++)
+    {
+        int idx = insert_one(i, target);
+        state[idx] *= d;
+    }
+}
+
+void StateVector::apply_phase_shift_gate(int target, complex phase)
+{
+
+#pragma omp parallel for
+    for (std::size_t i = 0; i < num_amps / 2; i++)
+    {
+        int idx = insert_one(i, target);
+        state[idx] *= phase;
     }
 }
