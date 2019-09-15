@@ -2,9 +2,9 @@
 
 int main()
 {
-    StateVector v(28);
+    StateVector v(29);
 
-    for (int i = 0; i < 28; i++)
+    for (int i = 0; i < 29; i++)
     {
         v.z(i);
     }

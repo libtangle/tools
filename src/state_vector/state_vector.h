@@ -24,6 +24,7 @@ public:
 
     void x(int target);
     void z(int target);
+    void h(int target);
 
     // Utility Functions
     void print();
@@ -31,6 +32,7 @@ public:
 
 // Gate Definitions
 extern Mat2x2 _x;
+extern Mat2x2 _h;
 
 // } // namespace tangle::state_vector
 
