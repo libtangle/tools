@@ -17,6 +17,7 @@ public:
 
     // Quantum Gates
     void apply_gate(int target, Mat2x2 const &m);
+    void apply_diagonal_gate(int target, Mat2x2 const &m);
     void apply_antidiagonal_gate(int target, Mat2x2 const &m);
     void apply_controlled_gate(int control, int target, Mat2x2 const &m);
 

@@ -93,3 +93,21 @@ void StateVector::apply_antidiagonal_gate(int target, Mat2x2 const &m)
         }
     }
 }
+
+inline bool check_bit(std::size_t x, std::size_t t)
+{
+    std::size_t one = (std::size_t)1;
+    return x & (one << t);
+}
+
+void StateVector::apply_diagonal_gate(int target, Mat2x2 const &m)
+{
+    complex a = m.xx;
+    complex d = m.yy;
+
+#pragma omp parallel for
+    for (std::size_t i = 0; i < num_amps; i++)
+    {
+        state[i] *= check_bit(i, target) ? d : a;
+    }
+}
