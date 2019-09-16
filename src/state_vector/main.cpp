@@ -2,11 +2,11 @@
 
 int main()
 {
-    StateVector v(29);
+    StateVector q(28);
 
-    for (int i = 0; i < 29; i++)
+    for (int i = 0; i < 28; i++)
     {
-        v.z(i);
+        q.h(i);
     }
 
     return 0;
